@@ -31,15 +31,3 @@ As a TR Relay Module:
 `env $(cat .env | xargs)` to automatically read the required environment
 variables from a `.env` file (i.e.`TR_API_CLIENT_ID`, `TR_API_CLIENT_PASSWORD`,
 `URL`, `JWT`) and pass them to the corresponding command.
-
-## Usage
-
-```bash
-export URL=<...>
-export JWT=<...>
-
-http POST "${URL}"/health Authorization:"Bearer ${JWT}"
-http POST "${URL}"/deliberate/observables Authorization:"Bearer ${JWT}" < observables.json
-http POST "${URL}"/observe/observables Authorization:"Bearer ${JWT}" < observables.json
-http POST "${URL}"/refer/observables Authorization:"Bearer ${JWT}" < observables.json
-```
