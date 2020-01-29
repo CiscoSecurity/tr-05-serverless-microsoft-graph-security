@@ -1,0 +1,159 @@
+{
+  "observable": "C:\\Windows\\SYSTEM32\\ntdll.dll",
+  "input": {
+    "activityGroupName": null,
+    "assignedTo": null,
+    "azureSubscriptionId": null,
+    "azureTenantId": "63d0b44f-8610-4dd2-91fd-541ffc973399",
+    "category": "exploit",
+    "closedDateTime": null,
+    "cloudAppStates": [],
+    "comments": [],
+    "confidence": null,
+    "createdDateTime": "2019-11-21T15:37:00Z",
+    "description": "A process suspiciously tried to access the export address table (EAT) to look for potentially useful APIs. This might indicate an exploitation attempt. The process svchost.exe, with process ID 404, tried accessing the Export Address table for module C:\\\\Windows\\\\SYSTEM32\\\\ntdll.dll and was blocked",
+    "detectionIds": [],
+    "eventDateTime": "2019-11-21T15:12:00Z",
+    "feedback": null,
+    "fileStates": [
+      {
+        "fileHash": null,
+        "name": "ntdll.dll",
+        "path": "C:\\Windows\\SYSTEM32\\ntdll.dll",
+        "riskScore": null
+      }
+    ],
+    "historyStates": [],
+    "hostStates": [
+      {
+        "fqdn": "dt-aldom.m365x595651.onmicrosoft.com",
+        "isAzureAdJoined": false,
+        "isAzureAdRegistered": true,
+        "isHybridAzureDomainJoined": null,
+        "netBiosName": "dt-aldom",
+        "os": null,
+        "privateIpAddress": "10.8.198.7",
+        "publicIpAddress": "172.16.37.134",
+        "riskScore": ""
+      }
+    ],
+    "id": "0F72C58F-1D01-4284-BB32-C53DD45B5C01",
+    "lastModifiedDateTime": "2019-11-21T16:55:00Z",
+    "malwareStates": [],
+    "networkConnections": [],
+    "processes": [
+      {
+        "accountName": "NT AUTHORITY\\SYSTEM",
+        "commandLine": "svchost.exe -k WerSvcGroup",
+        "createdDateTime": "2018-11-08T23:45:35Z",
+        "fileHash": null,
+        "integrityLevel": "unknown",
+        "isElevated": true,
+        "name": "svchost.exe",
+        "parentProcessCreatedDateTime": "2018-11-06T23:35:31Z",
+        "parentProcessId": 628,
+        "parentProcessName": "services.exe",
+        "path": "C:\\Windows\\System32\\svchost.exe",
+        "processId": 6232
+      }
+    ],
+    "recommendedActions": [
+      "Validate the alert, collect artifacts, and determine scope. If possible, upgrade the software containing the vulnerable driver to an updated version without the vulnerability."
+    ],
+    "registryKeyStates": [],
+    "riskScore": null,
+    "severity": "high",
+    "sourceMaterials": [
+      "https://beta.securitycenter.windows.com/alert/1872609273_636353916002745581"
+    ],
+    "status": "newAlert",
+    "tags": [],
+    "title": "Exploit Guard blocked dynamic code execution",
+    "triggers": [],
+    "userStates": [
+      {
+        "aadUserId": null,
+        "accountName": "aldom",
+        "domainName": "M365x594651.onmicrosoft.com",
+        "emailRole": "unknown",
+        "isVpn": null,
+        "logonDateTime": null,
+        "logonId": "S-1-5-21-2240959070-459921296-192865976-2611",
+        "logonIp": null,
+        "logonLocation": null,
+        "logonType": "remoteInteractive",
+        "onPremisesSecurityIdentifier": "S-1-5-86-615999462-62705297-2911207457-59056572-3668589840",
+        "riskScore": null,
+        "userAccountType": "administrator",
+        "userPrincipalName": "aldom@M365x594651.onmicrosoft.com"
+      }
+    ],
+    "vendorInformation": {
+      "provider": "Windows Defender ATP",
+      "providerVersion": "3.10.2",
+      "subProvider": "DeviceGuard",
+      "vendor": "Microsoft"
+    },
+    "vulnerabilityStates": []
+  },
+  "output": {
+    "count": 1,
+    "confidence": "None",
+    "description": "A process suspiciously tried to access the export address table (EAT) to look for potentially useful APIs. This might indicate an exploitation attempt. The process svchost.exe, with process ID 404, tried accessing the Export Address table for module C:\\\\Windows\\\\SYSTEM32\\\\ntdll.dll and was blocked",
+    "external_ids": [
+      "0F72C58F-1D01-4284-BB32-C53DD45B5C01"
+    ],
+    "external_references": [
+      {
+        "source_name": "Windows Defender ATP",
+        "url": "https://beta.securitycenter.windows.com/alert/1872609273_636353916002745581"
+      }
+    ],
+    "internal": true,
+    "observables": [
+      {
+        "type": "file_path",
+        "value": "C:\\Windows\\SYSTEM32\\ntdll.dll"
+      }
+    ],
+    "observed_time": {
+      "end_time": "2019-11-21T15:12:00Z",
+      "start_time": "2019-11-21T15:12:00Z"
+    },
+    "relations": [],
+    "schema_version": "1.0.12",
+    "sensor": "endpoint",
+    "severity": "High",
+    "source": "Microsoft Graph Security",
+    "targets": [
+      {
+        "observables": [
+          {
+            "type": "ip",
+            "value": "10.8.198.7"
+          },
+          {
+            "type": "ip",
+            "value": "172.16.37.134"
+          },
+          {
+            "type": "hostname",
+            "value": "dt-aldom"
+          },
+          {
+            "type": "domain",
+            "value": "dt-aldom.m365x595651.onmicrosoft.com"
+          }
+        ],
+        "observed_time": {
+          "start_time": "2019-11-21T15:12:00Z",
+          "end_time": "2019-11-21T15:12:00Z"
+        },
+        "type": "endpoint"
+      }
+    ],
+    "timestamp": "2019-11-21T15:12:00Z",
+    "title": "Exploit Guard blocked dynamic code execution",
+    "type": "sighting"
+  }
+}
