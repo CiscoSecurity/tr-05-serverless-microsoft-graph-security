@@ -14,9 +14,9 @@ install:
 - pip install --upgrade -r test-requirements.txt
 
 before_script:
-- cp ~/build/threatgrid/tr-microsoft-graph/tests/functional/project.properties.sample ~/build/threatgrid/project.properties
-- sed -i "s|app_hostname=.*|app_hostname=$app_hostname|" ~/build/threatgrid/project.properties
-- sed -i "s|app_client_password=.*|app_client_password=$app_client_password|" ~/build/threatgrid/project.properties
+- cp ~/build/CiscoSecurity/tr-05-serverless-microsoft-graph-security/tests/functional/project.properties.sample ~/build/CiscoSecurity/project.properties
+- sed -i "s|app_hostname=.*|app_hostname=$app_hostname|" ~/build/CiscoSecurity/project.properties
+- sed -i "s|app_client_password=.*|app_client_password=$app_client_password|" ~/build/CiscoSecurity/project.properties
 
 script:
 - flake8 .
