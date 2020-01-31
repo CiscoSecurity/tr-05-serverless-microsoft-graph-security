@@ -1,0 +1,127 @@
+{
+  "observable": "091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19",
+  "input": {
+    "activityGroupName": null,
+    "assignedTo": "analyst@contoso.com",
+    "azureSubscriptionId": null,
+    "azureTenantId": "63d0b44f-8610-4dd2-91fd-541ffc973399",
+    "category": "Social Engineering",
+    "closedDateTime": "2019-11-27T09:14:09Z",
+    "cloudAppStates": [],
+    "comments": [
+      "pen test"
+    ],
+    "confidence": null,
+    "createdDateTime": "2019-11-27T09:14:09Z",
+    "description": "Attackers can implant the right-to-left-override (RLO) in a filename to change the order of the characters in the filename and make it appear legitimate.  This technique is used in different social engineering attacks to convince the user to run the file, and may also be used for hiding purposes.  The file photoviewgpj.ps1 disguises itself as photoview1sp.jpg",
+    "detectionIds": [],
+    "eventDateTime": "2019-11-27T15:31:00Z",
+    "feedback": "falsePositive",
+    "fileStates": [
+      {
+        "fileHash": {
+          "hashType": "sha256",
+          "hashValue": "091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19"
+        },
+        "name": "photoview1sp.jpg",
+        "path": "c:\\\\temp\\\\photoview1sp.jpg",
+        "riskScore": ""
+      }
+    ],
+    "historyStates": [],
+    "hostStates": [],
+    "id": "EF76CDE9-C3C4-4A83-9707-9EF003C379BB",
+    "lastModifiedDateTime": "2019-11-27T15:32:00Z",
+    "malwareStates": [],
+    "networkConnections": [],
+    "processes": [],
+    "recommendedActions": [],
+    "registryKeyStates": [],
+    "riskScore": null,
+    "severity": "medium",
+    "sourceMaterials": [],
+    "status": "inProgress",
+    "tags": [],
+    "title": "Right-to-Left-Override (RLO) technique observed",
+    "triggers": [],
+    "userStates": [
+      {
+        "aadUserId": null,
+        "accountName": "douglasf",
+        "domainName": "M365x594651.onmicrosoft.com",
+        "emailRole": "unknown",
+        "isVpn": null,
+        "logonDateTime": null,
+        "logonId": null,
+        "logonIp": null,
+        "logonLocation": null,
+        "logonType": null,
+        "onPremisesSecurityIdentifier": null,
+        "riskScore": null,
+        "userAccountType": null,
+        "userPrincipalName": "douglasf@M365x594651.onmicrosoft.com"
+      }
+    ],
+    "vendorInformation": {
+      "provider": "Windows Defender ATP",
+      "providerVersion": "3.10.2002",
+      "subProvider": "EDR",
+      "vendor": "Microsoft"
+    },
+    "vulnerabilityStates": []
+  },
+  "output": {
+    "count": 1,
+    "confidence": "None",
+    "description": "Attackers can implant the right-to-left-override (RLO) in a filename to change the order of the characters in the filename and make it appear legitimate.  This technique is used in different social engineering attacks to convince the user to run the file, and may also be used for hiding purposes.  The file photoviewgpj.ps1 disguises itself as photoview1sp.jpg",
+    "external_ids": [
+      "EF76CDE9-C3C4-4A83-9707-9EF003C379BB"
+    ],
+    "external_references": [],
+    "internal": true,
+    "observables": [
+      {
+        "type": "sha256",
+        "value": "091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19"
+      }
+    ],
+    "observed_time": {
+      "end_time": "2019-11-27T15:31:00Z",
+      "start_time": "2019-11-27T15:31:00Z"
+    },
+    "relations": [
+      {
+        "origin": "Windows Defender ATP",
+        "related": {
+          "type": "sha256",
+          "value": "091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19"
+        },
+        "relation": "File_Name_Of",
+        "source": {
+          "type": "file_name",
+          "value": "photoview1sp.jpg"
+        }
+      },
+      {
+        "origin": "Windows Defender ATP",
+        "related": {
+          "type": "sha256",
+          "value": "091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19"
+        },
+        "relation": "File_Path_Of",
+        "source": {
+          "type": "file_path",
+          "value": "c:\\\\temp\\\\photoview1sp.jpg"
+        }
+      }
+    ],
+    "schema_version": "1.0.12",
+    "sensor": "endpoint",
+    "severity": "Medium",
+    "source": "Microsoft Graph Security",
+    "targets": [],
+    "timestamp": "2019-11-27T15:31:00Z",
+    "title": "Right-to-Left-Override (RLO) technique observed",
+    "type": "sighting"
+  }
+}

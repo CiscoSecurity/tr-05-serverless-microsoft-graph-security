@@ -1,0 +1,158 @@
+{
+  "observable": "172.16.33.115",
+  "input": {
+    "activityGroupName": null,
+    "assignedTo": null,
+    "azureSubscriptionId": null,
+    "azureTenantId": "63d0b44f-8610-4dd2-91fd-541ffc973399",
+    "category": "suspiciousActivity",
+    "closedDateTime": "2019-11-25T15:32:00Z",
+    "cloudAppStates": [],
+    "comments": [],
+    "confidence": null,
+    "createdDateTime": "2019-11-25T15:32:00Z",
+    "description": "A suspicious Powershell commandline was found on the machine. This commandline might be used during installation, exploration, or in some cases with lateral movement activities which are used by attackers to invoke modules, download external payloads, and get more information about the system. Attackers usually use Powershell to bypass security protection mechanisms by executing their payload in memory without touching the disk and leaving any trace.",
+    "detectionIds": [],
+    "eventDateTime": "2019-11-25T15:31:00Z",
+    "feedback": null,
+    "fileStates": [],
+    "historyStates": [],
+    "hostStates": [
+      {
+        "fqdn": "dt-aldom.M365x594651.onmicrosoft.com",
+        "isAzureAdJoined": false,
+        "isAzureAdRegistered": true,
+        "isHybridAzureDomainJoined": null,
+        "netBiosName": "dt-aldom",
+        "os": null,
+        "privateIpAddress": "10.8.198.18",
+        "publicIpAddress": "172.16.33.115",
+        "riskScore": ""
+      }
+    ],
+    "id": "F42BFF8C-519A-4DE9-A655-1DA0EA511DFD",
+    "lastModifiedDateTime": "2019-11-25T15:32:00Z",
+    "malwareStates": [],
+    "networkConnections": [
+      {
+        "applicationName": null,
+        "destinationAddress": "95.142.39.125",
+        "destinationDomain": null,
+        "destinationPort": null,
+        "destinationUrl": null,
+        "direction": "inbound",
+        "domainRegisteredDateTime": null,
+        "localDnsName": null,
+        "natDestinationAddress": null,
+        "natDestinationPort": null,
+        "natSourceAddress": null,
+        "natSourcePort": null,
+        "protocol": "ipv4",
+        "riskScore": null,
+        "sourceAddress": "172.16.33.115",
+        "sourcePort": null,
+        "status": null,
+        "urlParameters": null
+      }
+    ],
+    "processes": [],
+    "recommendedActions": [
+      "1. Examine the PowerShell commandline to understand what commands were executed. Note: the script may need to be decoded if it is base64-encoded.  2. Search the script for more indicators to investigate - for example IP addresses (potential C&C servers), target computers etc.  3. Explore the timeline of this and other related machines for additional suspect activities around the time of the alert.  4. Look for the process that invoked this PowerShell run and their origin. Consider submitting any suspect files in the chain for deep analysis for detailed behavior information."
+    ],
+    "registryKeyStates": [],
+    "riskScore": null,
+    "severity": "medium",
+    "sourceMaterials": [
+      "https://securitycenter.windows.com/alerts/4fdecbad-1b66-4b9f-88ae-d81e33f30d0b"
+    ],
+    "status": "newAlert",
+    "tags": [],
+    "title": "Suspicious Powershell commandline",
+    "triggers": [],
+    "userStates": [
+      {
+        "aadUserId": null,
+        "accountName": "aldom",
+        "domainName": "M365x594651.onmicrosoft.com",
+        "emailRole": "unknown",
+        "isVpn": null,
+        "logonDateTime": null,
+        "logonId": null,
+        "logonIp": null,
+        "logonLocation": null,
+        "logonType": null,
+        "onPremisesSecurityIdentifier": null,
+        "riskScore": null,
+        "userAccountType": null,
+        "userPrincipalName": "aldom@M365x594651.onmicrosoft.com"
+      }
+    ],
+    "vendorInformation": {
+      "provider": "Windows Defender ATP",
+      "providerVersion": "3.10.2",
+      "subProvider": "EDR",
+      "vendor": "Microsoft"
+    },
+    "vulnerabilityStates": []
+  },
+  "output": {
+    "count": 1,
+    "confidence": "None",
+    "description": "A suspicious Powershell commandline was found on the machine. This commandline might be used during installation, exploration, or in some cases with lateral movement activities which are used by attackers to invoke modules, download external payloads, and get more information about the system. Attackers usually use Powershell to bypass security protection mechanisms by executing their payload in memory without touching the disk and leaving any trace.",
+    "external_ids": [
+      "F42BFF8C-519A-4DE9-A655-1DA0EA511DFD"
+    ],
+    "external_references": [
+      {
+        "source_name": "Windows Defender ATP",
+        "url": "https://securitycenter.windows.com/alerts/4fdecbad-1b66-4b9f-88ae-d81e33f30d0b"
+      }
+    ],
+    "internal": true,
+    "observables": [
+      {
+        "type": "ip",
+        "value": "172.16.33.115"
+      }
+    ],
+    "observed_time": {
+      "end_time": "2019-11-25T15:31:00Z",
+      "start_time": "2019-11-25T15:31:00Z"
+    },
+    "relations": [],
+    "schema_version": "1.0.12",
+    "sensor": "endpoint",
+    "severity": "Medium",
+    "source": "Microsoft Graph Security",
+    "targets": [
+      {
+        "observables": [
+          {
+            "type": "ip",
+            "value": "10.8.198.18"
+          },
+          {
+            "type": "ip",
+            "value": "172.16.33.115"
+          },
+          {
+            "type": "hostname",
+            "value": "dt-aldom"
+          },
+          {
+            "type": "domain",
+            "value": "dt-aldom.M365x594651.onmicrosoft.com"
+          }
+        ],
+        "observed_time": {
+          "start_time": "2019-11-25T15:31:00Z",
+          "end_time": "2019-11-25T15:31:00Z"
+        },
+        "type": "endpoint"
+      }
+    ],
+    "timestamp": "2019-11-25T15:31:00Z",
+    "title": "Suspicious Powershell commandline",
+    "type": "sighting"
+  }
+}

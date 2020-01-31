@@ -1,0 +1,163 @@
+{
+  "observable": "lap-pattif",
+  "input": {
+    "activityGroupName": null,
+    "assignedTo": "",
+    "azureSubscriptionId": "344d72a7-1b67-426c-bb5a-c14a81f7e675",
+    "azureTenantId": "63d0b44f-8610-4dd2-91fd-541ffc973399",
+    "category": "KnownCredentialAccessTools",
+    "closedDateTime": null,
+    "cloudAppStates": [],
+    "comments": [],
+    "confidence": 0,
+    "createdDateTime": "2019-11-18T19:50:42.9424253Z",
+    "description": "Machine logs indicate that the suspicious process: 'c:\\users\\pattif\\appdata\\local\\temp\\mimikatz.exe' was running on the machine, often associated with attacker attempts to access credentials.'",
+    "detectionIds": [],
+    "eventDateTime": "2019-11-18T19:50:39.3772751Z",
+    "feedback": null,
+    "fileStates": [
+      {
+        "fileHash": null,
+        "name": "mimikatz.exe",
+        "path": "c:\\users\\pattif\\appdata\\local\\temp\\mimikatz.exe",
+        "riskScore": "0"
+      }
+    ],
+    "historyStates": [],
+    "hostStates": [
+      {
+        "fqdn": "lap-pattif.M365x594651.onmicrosoft.com",
+        "isAzureAdJoined": null,
+        "isAzureAdRegistered": null,
+        "isHybridAzureDomainJoined": false,
+        "netBiosName": "lap-pattif",
+        "os": "",
+        "privateIpAddress": null,
+        "publicIpAddress": null,
+        "riskScore": "0"
+      }
+    ],
+    "id": "C037F5DE-DE6C-47CB-8A11-300EC42D94D1",
+    "lastModifiedDateTime": "2019-11-18T19:50:47.0011912Z",
+    "malwareStates": [],
+    "networkConnections": [],
+    "processes": [
+      {
+        "accountName": "",
+        "commandLine": "",
+        "createdDateTime": null,
+        "fileHash": null,
+        "integrityLevel": "unknown",
+        "isElevated": false,
+        "name": "",
+        "parentProcessCreatedDateTime": null,
+        "parentProcessId": null,
+        "parentProcessName": "",
+        "path": "",
+        "processId": 3108
+      },
+      {
+        "accountName": "",
+        "commandLine": ".\\mimikatz.exe",
+        "createdDateTime": "2018-11-19T19:50:39Z",
+        "fileHash": null,
+        "integrityLevel": "unknown",
+        "isElevated": false,
+        "name": "",
+        "parentProcessCreatedDateTime": null,
+        "parentProcessId": null,
+        "parentProcessName": "",
+        "path": "",
+        "processId": 8076
+      }
+    ],
+    "recommendedActions": [
+      "1. Run Process Explorer and try to identify unknown running processes (see https://technet.microsoft.com/en-us/sysinternals/bb896653.aspx)",
+      "2. Escalate the alert to the information security team",
+      "3. Make sure the machine is completely updated and has an updated anti-malware application installed",
+      "4. Run a full anti-malware scan and verify that the threat was removed",
+      "5. Install and run Microsoft's Malicious Software Removal Tool (see https://www.microsoft.com/en-us/download/malicious-software-removal-tool-details.aspx)",
+      "6. Run Microsoft's Autoruns utility and try to identify unknown applications that are configured to run at login (see https://technet.microsoft.com/en-us/sysinternals/bb963902.aspx)"
+    ],
+    "registryKeyStates": [],
+    "riskScore": null,
+    "severity": "high",
+    "sourceMaterials": [],
+    "status": "newAlert",
+    "tags": [],
+    "title": "Suspicious process executed",
+    "triggers": [],
+    "userStates": [
+      {
+        "aadUserId": "",
+        "accountName": "pattif",
+        "domainName": "M365x594651.onmicrosoft.com",
+        "emailRole": "unknown",
+        "isVpn": null,
+        "logonDateTime": null,
+        "logonId": "0",
+        "logonIp": null,
+        "logonLocation": null,
+        "logonType": null,
+        "onPremisesSecurityIdentifier": "",
+        "riskScore": "0",
+        "userAccountType": null,
+        "userPrincipalName": "pattif@M365x594651.onmicrosoft.com"
+      }
+    ],
+    "vendorInformation": {
+      "provider": "Azure Security Center",
+      "providerVersion": "3.0",
+      "subProvider": null,
+      "vendor": "Microsoft"
+    },
+    "vulnerabilityStates": []
+  },
+  "output": {
+    "count": 1,
+    "confidence": "Low",
+    "description": "Machine logs indicate that the suspicious process: 'c:\\users\\pattif\\appdata\\local\\temp\\mimikatz.exe' was running on the machine, often associated with attacker attempts to access credentials.'",
+    "external_ids": [
+      "C037F5DE-DE6C-47CB-8A11-300EC42D94D1"
+    ],
+    "external_references": [],
+    "internal": true,
+    "observables": [
+      {
+        "type": "hostname",
+        "value": "lap-pattif"
+      }
+    ],
+    "observed_time": {
+      "end_time": "2019-11-18T19:50:39.3772751Z",
+      "start_time": "2019-11-18T19:50:39.3772751Z"
+    },
+    "relations": [],
+    "schema_version": "1.0.12",
+    "sensor": "endpoint",
+    "severity": "High",
+    "source": "Microsoft Graph Security",
+    "targets": [
+      {
+        "observables": [
+          {
+            "type": "hostname",
+            "value": "lap-pattif"
+          },
+          {
+            "type": "domain",
+            "value": "lap-pattif.M365x594651.onmicrosoft.com"
+          }
+        ],
+        "observed_time": {
+          "start_time": "2019-11-18T19:50:39.3772751Z",
+          "end_time": "2019-11-18T19:50:39.3772751Z"
+        },
+        "type": "endpoint"
+      }
+    ],
+    "timestamp": "2019-11-18T19:50:39.3772751Z",
+    "title": "Suspicious process executed",
+    "type": "sighting"
+  }
+}

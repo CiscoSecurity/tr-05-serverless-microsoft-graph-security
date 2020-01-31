@@ -1,0 +1,160 @@
+{
+  "observable": "http://willaimsclarke.com/lee/fre.php",
+  "input": {
+    "activityGroupName": null,
+    "assignedTo": "analyst@M365x594651.onmicrosoft.com",
+    "azureSubscriptionId": null,
+    "azureTenantId": "63d0b44f-8610-4dd2-91fd-541ffc973399",
+    "category": "network",
+    "closedDateTime": null,
+    "cloudAppStates": [],
+    "comments": [
+      "Under investigatiopn",
+      "found evidence of malware"
+    ],
+    "confidence": null,
+    "createdDateTime": "2019-11-26T09:05:37Z",
+    "description": "The host lap-douglasf created a network connection to a suspicious URL http[:]//willaimsclarke.com/lee/fre.php",
+    "detectionIds": [],
+    "eventDateTime": "2019-11-26T09:05:21Z",
+    "feedback": "truePositive",
+    "fileStates": [],
+    "historyStates": [],
+    "hostStates": [
+      {
+        "fqdn": "lap-douglasf365x594651.onmicrosoft.com",
+        "isAzureAdJoined": false,
+        "isAzureAdRegistered": true,
+        "isHybridAzureDomainJoined": null,
+        "netBiosName": "lap-douglasf",
+        "os": "Windows10",
+        "privateIpAddress": "10.8.198.11",
+        "publicIpAddress": "172.16.37.125",
+        "riskScore": null
+      }
+    ],
+    "id": "05BD5D80-3385-49D5-BEE4-4E439F9C0071",
+    "lastModifiedDateTime": "2019-11-26T09:05:37Z",
+    "malwareStates": [],
+    "networkConnections": [
+      {
+        "applicationName": null,
+        "destinationAddress": "54.243.225.218",
+        "destinationDomain": "willaimsclarke.com",
+        "destinationPort": "80",
+        "destinationUrl": "http://willaimsclarke.com/lee/fre.php",
+        "direction": "outbound",
+        "domainRegisteredDateTime": null,
+        "localDnsName": null,
+        "natDestinationAddress": null,
+        "natDestinationPort": null,
+        "natSourceAddress": null,
+        "natSourcePort": null,
+        "protocol": "tcp",
+        "riskScore": null,
+        "sourceAddress": null,
+        "sourcePort": null,
+        "status": null,
+        "urlParameters": null
+      }
+    ],
+    "processes": [],
+    "recommendedActions": [],
+    "registryKeyStates": [],
+    "riskScore": null,
+    "severity": "informational",
+    "sourceMaterials": [],
+    "status": "inProgress",
+    "tags": [
+      "endpoint"
+    ],
+    "title": "Palo Alto NG Firewall detected a network connection to a suspicious URL",
+    "triggers": [
+      {
+        "name": "networkConnections.destinationUrl",
+        "type": "string",
+        "value": "http://willaimsclarke.com/lee/fre.php"
+      }
+    ],
+    "userStates": [
+      {
+        "aadUserId": null,
+        "accountName": "douglasf",
+        "domainName": "M365x594651.onmicrosoft.com",
+        "emailRole": "unknown",
+        "isVpn": null,
+        "logonDateTime": null,
+        "logonId": null,
+        "logonIp": null,
+        "logonLocation": null,
+        "logonType": null,
+        "onPremisesSecurityIdentifier": null,
+        "riskScore": null,
+        "userAccountType": null,
+        "userPrincipalName": "douglasf@M365x594651.onmicrosoft.com"
+      }
+    ],
+    "vendorInformation": {
+      "provider": "Palo Alto Networks",
+      "providerVersion": "8.1",
+      "subProvider": "NG Firewall",
+      "vendor": "Palo Alto Networks"
+    },
+    "vulnerabilityStates": []
+  },
+  "output": {
+    "count": 1,
+    "confidence": "None",
+    "description": "The host lap-douglasf created a network connection to a suspicious URL http[:]//willaimsclarke.com/lee/fre.php",
+    "external_ids": [
+      "05BD5D80-3385-49D5-BEE4-4E439F9C0071"
+    ],
+    "external_references": [],
+    "internal": true,
+    "observables": [
+      {
+        "type": "url",
+        "value": "http://willaimsclarke.com/lee/fre.php"
+      }
+    ],
+    "observed_time": {
+      "end_time": "2019-11-26T09:05:21Z",
+      "start_time": "2019-11-26T09:05:21Z"
+    },
+    "relations": [],
+    "schema_version": "1.0.12",
+    "sensor": "network.firewall",
+    "severity": "Info",
+    "source": "Microsoft Graph Security",
+    "targets": [
+      {
+        "observables": [
+          {
+            "type": "ip",
+            "value": "10.8.198.11"
+          },
+          {
+            "type": "ip",
+            "value": "172.16.37.125"
+          },
+          {
+            "type": "hostname",
+            "value": "lap-douglasf"
+          },
+          {
+            "type": "domain",
+            "value": "lap-douglasf365x594651.onmicrosoft.com"
+          }
+        ],
+        "observed_time": {
+          "start_time": "2019-11-26T09:05:21Z",
+          "end_time": "2019-11-26T09:05:21Z"
+        },
+        "type": "endpoint"
+      }
+    ],
+    "timestamp": "2019-11-26T09:05:21Z",
+    "title": "Palo Alto NG Firewall detected a network connection to a suspicious URL",
+    "type": "sighting"
+  }
+}

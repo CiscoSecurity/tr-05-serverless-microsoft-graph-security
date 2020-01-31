@@ -1,0 +1,148 @@
+{
+  "observable": "file.bin",
+  "input": {
+    "activityGroupName": null,
+    "assignedTo": "",
+    "azureSubscriptionId": "",
+    "azureTenantId": "63d0b44f-8610-4dd2-91fd-541ffc973399",
+    "category": "threat",
+    "closedDateTime": null,
+    "cloudAppStates": [],
+    "comments": [],
+    "confidence": null,
+    "createdDateTime": "2019-11-23T15:11:31Z",
+    "description": "Traps: Malware Blocked",
+    "detectionIds": [],
+    "eventDateTime": "2019-11-23T15:58:31Z",
+    "feedback": "unknown",
+    "fileStates": [
+      {
+        "fileHash": null,
+        "name": "file.bin",
+        "path": "/tmp",
+        "riskScore": ""
+      }
+    ],
+    "historyStates": [],
+    "hostStates": [
+      {
+        "fqdn": "linux-client131",
+        "isAzureAdJoined": null,
+        "isAzureAdRegistered": null,
+        "isHybridAzureDomainJoined": null,
+        "netBiosName": "",
+        "os": null,
+        "privateIpAddress": "10.8.122.32",
+        "publicIpAddress": "",
+        "riskScore": ""
+      }
+    ],
+    "id": "5AE9CC76-B587-4401-95C7-A8C878B7FFA5",
+    "lastModifiedDateTime": "2019-11-23T15:11:31Z",
+    "malwareStates": [],
+    "networkConnections": [
+      {
+        "applicationName": null,
+        "destinationAddress": "54.243.225.218",
+        "destinationDomain": null,
+        "destinationPort": "3712",
+        "destinationUrl": null,
+        "direction": null,
+        "domainRegisteredDateTime": null,
+        "localDnsName": null,
+        "natDestinationAddress": null,
+        "natDestinationPort": null,
+        "natSourceAddress": null,
+        "natSourcePort": null,
+        "protocol": "tcp",
+        "riskScore": null,
+        "sourceAddress": "10.8.122.32",
+        "sourcePort": "8371",
+        "status": null,
+        "urlParameters": null
+      }
+    ],
+    "processes": [],
+    "recommendedActions": [],
+    "registryKeyStates": [],
+    "riskScore": null,
+    "severity": "high",
+    "sourceMaterials": [],
+    "status": "newAlert",
+    "tags": [],
+    "title": "Traps: Malware Blocked",
+    "triggers": [],
+    "userStates": [
+      {
+        "aadUserId": null,
+        "accountName": "adamw",
+        "domainName": "M365x594651.onmicrosoft.com",
+        "emailRole": "unknown",
+        "isVpn": null,
+        "logonDateTime": null,
+        "logonId": "",
+        "logonIp": null,
+        "logonLocation": "",
+        "logonType": "unknown",
+        "onPremisesSecurityIdentifier": "",
+        "riskScore": "",
+        "userAccountType": "unknown",
+        "userPrincipalName": "adamw@M365x594651.onmicrosoft.com"
+      }
+    ],
+    "vendorInformation": {
+      "provider": "Palo Alto Networks",
+      "providerVersion": "5.0",
+      "subProvider": "Traps",
+      "vendor": "Palo Alto Networks"
+    },
+    "vulnerabilityStates": []
+  },
+  "output": {
+    "count": 1,
+    "confidence": "None",
+    "description": "Traps: Malware Blocked",
+    "external_ids": [
+      "5AE9CC76-B587-4401-95C7-A8C878B7FFA5"
+    ],
+    "external_references": [],
+    "internal": true,
+    "observables": [
+      {
+        "type": "file_name",
+        "value": "file.bin"
+      }
+    ],
+    "observed_time": {
+      "end_time": "2019-11-23T15:58:31Z",
+      "start_time": "2019-11-23T15:58:31Z"
+    },
+    "relations": [],
+    "schema_version": "1.0.12",
+    "sensor": "endpoint",
+    "severity": "High",
+    "source": "Microsoft Graph Security",
+    "targets": [
+      {
+        "observables": [
+          {
+            "type": "ip",
+            "value": "10.8.122.32"
+          },
+          {
+            "type": "domain",
+            "value": "linux-client131"
+          }
+        ],
+        "observed_time": {
+          "start_time": "2019-11-23T15:58:31Z",
+          "end_time": "2019-11-23T15:58:31Z"
+        },
+        "type": "endpoint"
+      }
+    ],
+    "timestamp": "2019-11-23T15:58:31Z",
+    "title": "Traps: Malware Blocked",
+    "type": "sighting"
+  }
+}
