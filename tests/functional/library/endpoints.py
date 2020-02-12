@@ -1,1 +1,1 @@
-APP_ATQC = 'dev'
+RELAY_PREFIX = 'dev'

@@ -1,7 +1,6 @@
-from tests.functional.library.relay_api import relay_observe_observables
 
 
-def test_positive_relay_observe_observables_domain(session_headers):
+def test_positive_relay_observe_observables_domain(relay_api):
     """ Test relay observe observables api mock for domain in Graph Security
 
     ID: CCTRI-354-4c96ad24-5a16-449b-9120-0af449d546c6
@@ -32,9 +31,8 @@ def test_positive_relay_observe_observables_domain(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 1
@@ -46,7 +44,7 @@ def test_positive_relay_observe_observables_domain(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_ip(session_headers):
+def test_positive_relay_observe_observables_ip(relay_api):
     """ Test relay observe observables api mock for IP in Graph Security
 
     ID: CCTRI-467-4a8ae2af-56d8-478d-bb5a-b6da0a55c882
@@ -83,9 +81,8 @@ def test_positive_relay_observe_observables_ip(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 1
@@ -97,7 +94,7 @@ def test_positive_relay_observe_observables_ip(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_url(session_headers):
+def test_positive_relay_observe_observables_url(relay_api):
     """ Test relay observe observables api mock for url in Graph Security
 
     ID: CCTRI-468-dfcd642e-f02b-428b-9695-168e7d59d533
@@ -132,9 +129,8 @@ def test_positive_relay_observe_observables_url(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 1
@@ -146,7 +142,7 @@ def test_positive_relay_observe_observables_url(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_hostname(session_headers):
+def test_positive_relay_observe_observables_hostname(relay_api):
     """ Test relay observe observables api mock for hostname in Graph Security
 
     ID: CCTRI-472-67881b85-20d7-4f11-94d6-dd228d72753c
@@ -179,9 +175,8 @@ def test_positive_relay_observe_observables_hostname(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 1
@@ -193,7 +188,7 @@ def test_positive_relay_observe_observables_hostname(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_sha256(session_headers):
+def test_positive_relay_observe_observables_sha256(relay_api):
     """ Test relay observe observables api mock for file hash in Graph Security
 
     ID: CCTRI-469-a879c402-cb6f-441c-8c0c-458a6e456217
@@ -230,9 +225,8 @@ def test_positive_relay_observe_observables_sha256(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 2
@@ -244,7 +238,7 @@ def test_positive_relay_observe_observables_sha256(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_path(session_headers):
+def test_positive_relay_observe_observables_path(relay_api):
     """ Test relay observe observables api mock for file path in Graph Security
 
     ID: CCTRI-471-a7435d3f-2160-43c6-b8de-a2da65f9c40d
@@ -279,9 +273,8 @@ def test_positive_relay_observe_observables_path(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 2
@@ -293,7 +286,7 @@ def test_positive_relay_observe_observables_path(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_file_name(session_headers):
+def test_positive_relay_observe_observables_file_name(relay_api):
     """ Test relay observe observables api mock for file name in Graph Security
 
     ID: CCTRI-470-ef6c5b84-ac4e-463d-bf3f-bf8dd08b7a07
@@ -328,9 +321,8 @@ def test_positive_relay_observe_observables_file_name(session_headers):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     sighting = sightings['docs'][0]
@@ -341,7 +333,7 @@ def test_positive_relay_observe_observables_file_name(session_headers):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_sighting_complex_sightings(session_headers):
+def test_positive_sighting_complex_sightings(relay_api):
     """Perform testing for relay observe/observables. Make attempt to
     get several Sightings in one request.
 
@@ -364,9 +356,8 @@ def test_positive_sighting_complex_sightings(session_headers):
     observables = [{"value": observable_1, "type": observable_type_1},
                    {"value": observable_2, "type": observable_type_2}]
 
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 2
@@ -375,7 +366,7 @@ def test_positive_sighting_complex_sightings(session_headers):
             sightings['docs'][1]['observables']) == observables
 
 
-def test_domain_negative_observable_does_not_exist(session_headers):
+def test_domain_negative_observable_does_not_exist(relay_api):
     """Perform testing for relay observe/observables. Make attempt to
     get observable which doesn't exist in Graph Security
 
@@ -394,13 +385,12 @@ def test_domain_negative_observable_does_not_exist(session_headers):
     observables = [{'value': observable, 'type': 'domain'}]
 
     # Check respond data
-    sightings = relay_observe_observables(
-        payload=observables,
-        **{'headers': session_headers}).json()
+    sightings = relay_api.observe_observables(
+        payload=observables).json()
     assert sightings['data'] == {}
 
 
-def test_negative_observable_empty_body(session_headers):
+def test_negative_observable_empty_body(relay_api):
     """Make attempt to send empty body in Graph Security
 
     ID: CCTRI-354-68390ef3-a090-4015-a9a7-a29b39431c52
@@ -415,8 +405,7 @@ def test_negative_observable_empty_body(session_headers):
 
     Importance: Low
     """
-    response = relay_observe_observables(
-        **{'headers': session_headers})
+    response = relay_api.observe_observables(payload=None)
 
     assert response.status_code == 400
     assert (response.json()['message'] == 'Invalid JSON format.')
