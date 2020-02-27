@@ -1,15 +1,74 @@
+from ctrlibrary.threatresponse.enrich import enrich_observe_observables
+from ctrlibrary.core.utils import get_observables
 
 
-def test_positive_relay_observe_observables_domain(relay_api):
-    """ Test relay observe observables api mock for domain in Graph Security
+def test_positive_enrich_observe_observables_sha256(module_headers):
+    """Perform testing for enrich observe observables endpoint for sha256 in
+    Graph Security module
 
-    ID: CCTRI-354-4c96ad24-5a16-449b-9120-0af449d546c6
+    CCTRI-354-38e92acf-45e2-4ff6-b5f4-c7e7f4e20f2d
 
     Steps:
-        1. Send request with domain type to endpoint observe observables
+        1. Send request with observable that has SHA256 type to observe
+            observables endpoint
 
     Expectedresults:
-        1. Check data in body respond
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
+
+    Importance: Critical
+    """
+    observable = (
+        '091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19')
+    observable_type = 'sha256'
+    expected_observable = {
+        'description': (
+            'Attackers can implant the right-to-left-override (RLO) in a '
+            'filename to change the order of the characters in the filename '
+            'and make it appear legitimate.  This technique is used in '
+            'different social engineering attacks to convince the user to run'
+            ' the file, and may also be used for hiding purposes.  The file '
+            'photoviewgpj.ps1 disguises itself as photoview1sp.jpg'
+        ),
+        'schema_version': '1.0.12',
+        'sensor': 'endpoint',
+        'severity': 'Medium',
+        'source': 'Microsoft Graph Security',
+        'title': 'Right-to-Left-Override (RLO) technique observed',
+        'type': 'sighting'
+    }
+
+    # Get sightings
+    observables = [{"value": observable, "type": observable_type}]
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers}
+    )['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
+
+    # Check respond data
+    sightings = direct_observables['data']['sightings']
+    assert sightings['count'] == 2
+    sighting = sightings['docs'][0]
+    assert sighting['observables'] == observables
+
+    for key in expected_observable.keys():
+        assert expected_observable[key] == sighting[key]
+
+
+def test_positive_enrich_observe_observables_domain(module_headers):
+    """ Perform testing for enrich observe observables endpoint for domain in
+    Graph Security module
+
+    CCTRI-354-91094c36-a118-48a6-9ba9-5f73a1f63208
+
+    Steps:
+        1. Send request with observable that has domain type to observe
+            observables endpoint
+
+    Expectedresults:
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
 
     Importance: Critical
     """
@@ -31,10 +90,13 @@ def test_positive_relay_observe_observables_domain(relay_api):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers})['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    sightings = direct_observables['data']['sightings']
     assert sightings['count'] == 1
     sighting = sightings['docs'][0]
     assert sighting['observables'] == observables
@@ -44,16 +106,19 @@ def test_positive_relay_observe_observables_domain(relay_api):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_ip(relay_api):
-    """ Test relay observe observables api mock for IP in Graph Security
+def test_positive_enrich_observe_observables_ip(module_headers):
+    """ Perform testing for enrich observe observables endpoint for IP in
+    Graph Security module
 
-    ID: CCTRI-467-4a8ae2af-56d8-478d-bb5a-b6da0a55c882
+    ID: CCTRI-467-63340fd2-3ed5-44f5-b274-c5595322dc43
 
     Steps:
-        1. Send request with IP type to endpoint observe observables
+        1. Send request with observable that has IP type to observe
+            observables endpoint
 
     Expectedresults:
-        1. Check data in body respond
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
 
     Importance: Critical
     """
@@ -81,10 +146,14 @@ def test_positive_relay_observe_observables_ip(relay_api):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers}
+    )['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    sightings = direct_observables['data']['sightings']
     assert sightings['count'] == 1
     sighting = sightings['docs'][0]
     assert sighting['observables'] == observables
@@ -94,17 +163,19 @@ def test_positive_relay_observe_observables_ip(relay_api):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_url(relay_api):
-    """ Test relay observe observables api mock for url in Graph Security
+def test_positive_enrich_observe_observables_url(module_headers):
+    """ Perform testing for enrich observe observables endpoint for URL in
+    Graph Security module
 
     ID: CCTRI-468-dfcd642e-f02b-428b-9695-168e7d59d533
 
-
     Steps:
-        1. Send request with url type to endpoint observe observables
+        1. Send request with observable that has URL type to observe
+            observables endpoint
 
     Expectedresults:
-        1. Check data in body respond
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
 
     Importance: Critical
     """
@@ -129,10 +200,14 @@ def test_positive_relay_observe_observables_url(relay_api):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers}
+    )['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    sightings = direct_observables['data']['sightings']
     assert sightings['count'] == 1
     sighting = sightings['docs'][0]
     assert sighting['observables'] == observables
@@ -142,16 +217,19 @@ def test_positive_relay_observe_observables_url(relay_api):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_hostname(relay_api):
-    """ Test relay observe observables api mock for hostname in Graph Security
+def test_positive_enrich_observe_observables_hostname(module_headers):
+    """ Perform testing for enrich observe observables endpoint for HOSTNAME in
+    Graph Security module
 
     ID: CCTRI-472-67881b85-20d7-4f11-94d6-dd228d72753c
 
     Steps:
-        1. Send request with hostname type to endpoint observe observables
+        1. Send request with observable that has HOSTNAME type to observe
+            observables endpoint
 
     Expectedresults:
-        1. Check data in body respond
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
 
     Importance: Critical
     """
@@ -175,10 +253,14 @@ def test_positive_relay_observe_observables_hostname(relay_api):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers}
+    )['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    sightings = direct_observables['data']['sightings']
     assert sightings['count'] == 1
     sighting = sightings['docs'][0]
     assert sighting['observables'] == observables
@@ -188,66 +270,19 @@ def test_positive_relay_observe_observables_hostname(relay_api):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_sha256(relay_api):
-    """ Test relay observe observables api mock for file hash in Graph Security
-
-    ID: CCTRI-469-a879c402-cb6f-441c-8c0c-458a6e456217
-
-    Steps:
-        1. Send request with file hash type to endpoint observe observables
-
-    Expectedresults:
-        1. Check data in body respond
-
-    Importance: Critical
-    """
-    observable = (
-        '091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19')
-    observable_type = 'sha256'
-
-    expected_observable = {
-        'description': (
-            'Attackers can implant the right-to-left-override (RLO) in a '
-            'filename to change the order of the characters in the filename '
-            'and make it appear legitimate.  This technique is used in '
-            'different social engineering attacks to convince the user to run'
-            ' the file, and may also be used for hiding purposes.  The file '
-            'photoviewgpj.ps1 disguises itself as photoview1sp.jpg'
-        ),
-        'external_ids': ['EF76CDE9-C3C4-4A83-9707-9EF003C379BB'],
-        'schema_version': '1.0.12',
-        'sensor': 'endpoint',
-        'severity': 'Medium',
-        'source': 'Microsoft Graph Security',
-        'title': 'Right-to-Left-Override (RLO) technique observed',
-        'type': 'sighting'
-    }
-
-    # Get sightings
-    observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
-
-    # Check respond data
-    assert sightings['count'] == 2
-    sighting = sightings['docs'][0]
-    assert sighting['observables'] == observables
-    assert set(sighting['observed_time'].keys()) == {'start_time', 'end_time'}
-
-    for key in expected_observable.keys():
-        assert expected_observable[key] == sighting[key]
-
-
-def test_positive_relay_observe_observables_path(relay_api):
-    """ Test relay observe observables api mock for file path in Graph Security
+def test_positive_enrich_observe_observables_file_path(module_headers):
+    """ Perform testing for enrich observe observables endpoint for FILE_PATH
+    in Graph Security module
 
     ID: CCTRI-471-a7435d3f-2160-43c6-b8de-a2da65f9c40d
 
     Steps:
-        1. Send request with file path type to endpoint observe observables
+        1. Send request with observable that has FILE_PATH type to observe
+            observables endpoint
 
     Expectedresults:
-        1. Check data in body respond
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
 
     Importance: Critical
     """
@@ -255,28 +290,22 @@ def test_positive_relay_observe_observables_path(relay_api):
     observable_type = 'file_path'
 
     expected_observable = {
-        'description': (
-            'A process suspiciously tried to access the export address table '
-            '(EAT) to look for potentially useful APIs. This might indicate an'
-            ' exploitation attempt. The process svchost.exe, with process ID '
-            '404, tried accessing the Export Address table for module '
-            'C:\\\\Windows\\\\SYSTEM32\\\\ntdll.dll and was blocked'
-        ),
-        'external_ids': ['0F72C58F-1D01-4284-BB32-C53DD45B5C01'],
         'schema_version': '1.0.12',
         'sensor': 'endpoint',
-        'severity': 'High',
         'source': 'Microsoft Graph Security',
-        'title': 'Exploit Guard blocked dynamic code execution',
         'type': 'sighting'
     }
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers}
+    )['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    sightings = direct_observables['data']['sightings']
     assert sightings['count'] == 2
     sighting = sightings['docs'][0]
     assert sighting['observables'] == observables
@@ -286,16 +315,19 @@ def test_positive_relay_observe_observables_path(relay_api):
         assert expected_observable[key] == sighting[key]
 
 
-def test_positive_relay_observe_observables_file_name(relay_api):
-    """ Test relay observe observables api mock for file name in Graph Security
+def test_positive_enrich_observe_observables_file_name(module_headers):
+    """ Perform testing for enrich observe observables endpoint for file_name
+    in Graph Security module
 
     ID: CCTRI-470-ef6c5b84-ac4e-463d-bf3f-bf8dd08b7a07
 
     Steps:
-        1. Send request with file name type to endpoint observe observables
+        1. Send request with observable that has file_name type to observe
+            observables endpoint
 
     Expectedresults:
-        1. Check data in body respond
+        1. Check that data in response body contains expected information
+            from Microsoft Graph Security module
 
     Importance: Critical
     """
@@ -310,7 +342,6 @@ def test_positive_relay_observe_observables_file_name(relay_api):
             'different social engineering attacks to convince the user to run '
             'the file, and may also be used for hiding purposes.  The file '
             'photoviewgpj.ps1 disguises itself as photoview1sp.jpg'),
-        'external_ids': ['EF76CDE9-C3C4-4A83-9707-9EF003C379BB'],
         'schema_version': '1.0.12',
         'sensor': 'endpoint',
         'severity': 'Medium',
@@ -321,91 +352,17 @@ def test_positive_relay_observe_observables_file_name(relay_api):
 
     # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
+    response = enrich_observe_observables(
+        payload=observables,
+        **{'headers': module_headers}
+    )['data']
+    direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    sightings = direct_observables['data']['sightings']
     sighting = sightings['docs'][0]
     assert sighting['observables'] == observables
     assert set(sighting['observed_time'].keys()) == {'start_time', 'end_time'}
 
     for key in expected_observable.keys():
         assert expected_observable[key] == sighting[key]
-
-
-def test_positive_sighting_complex_sightings(relay_api):
-    """Perform testing for relay observe/observables. Make attempt to
-    get several Sightings in one request.
-
-    ID: CCTRI-354-a992a318-4447-4675-b09f-a10db12f06b5
-
-    Steps:
-        1. Create Two Observables.
-        2. Get Sightings for Observables.
-
-    Expectedresults:
-        1. Entities created successfully.
-        2. Checked data in body respond shown correctly.
-
-    Importance: Critical
-    """
-    observable_1 = '/path/users/3/update'
-    observable_2 = 'www.febrikam.com'
-    observable_type_1 = 'file_path'
-    observable_type_2 = 'domain'
-    observables = [{"value": observable_1, "type": observable_type_1},
-                   {"value": observable_2, "type": observable_type_2}]
-
-    sightings = relay_api.observe_observables(
-        payload=observables).json()['data']['sightings']
-
-    # Check respond data
-    assert sightings['count'] == 2
-
-    assert (sightings['docs'][0]['observables'] +
-            sightings['docs'][1]['observables']) == observables
-
-
-def test_domain_negative_observable_does_not_exist(relay_api):
-    """Perform testing for relay observe/observables. Make attempt to
-    get observable which doesn't exist in Graph Security
-
-    ID: CCTRI-354-432f0e0a-4806-4fda-906f-2d21e2015eee
-
-    Steps:
-        1. Send request with domain type to endpoint observe observables witch
-        does not exist.
-
-    Expectedresults:
-        1. Got empty result
-
-    Importance: Low
-    """
-    observable = 'qweeeeeeertrty.com'
-    observables = [{'value': observable, 'type': 'domain'}]
-
-    # Check respond data
-    sightings = relay_api.observe_observables(
-        payload=observables).json()
-    assert sightings['data'] == {}
-
-
-def test_negative_observable_empty_body(relay_api):
-    """Make attempt to send empty body in Graph Security
-
-    ID: CCTRI-354-68390ef3-a090-4015-a9a7-a29b39431c52
-
-    Steps:
-        1. Send request with domain type to endpoint observe observables witch
-        does not exist.
-
-    Expectedresults:
-        1. Status code == 400
-        2. Error message == "Invalid JSON format."
-
-    Importance: Low
-    """
-    response = relay_api.observe_observables(payload=None)
-
-    assert response.status_code == 400
-    assert (response.json()['message'] == 'Invalid JSON format.')
