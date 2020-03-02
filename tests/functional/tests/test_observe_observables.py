@@ -6,7 +6,7 @@ def test_positive_enrich_observe_observables_sha256(module_headers):
     """Perform testing for enrich observe observables endpoint for sha256 in
     Graph Security module
 
-    CCTRI-354-38e92acf-45e2-4ff6-b5f4-c7e7f4e20f2d
+    ID: CCTRI-354-38e92acf-45e2-4ff6-b5f4-c7e7f4e20f2d
 
     Steps:
         1. Send request with observable that has SHA256 type to observe
@@ -60,7 +60,7 @@ def test_positive_enrich_observe_observables_domain(module_headers):
     """ Perform testing for enrich observe observables endpoint for domain in
     Graph Security module
 
-    CCTRI-354-91094c36-a118-48a6-9ba9-5f73a1f63208
+    ID: CCTRI-354-91094c36-a118-48a6-9ba9-5f73a1f63208
 
     Steps:
         1. Send request with observable that has domain type to observe
@@ -286,14 +286,24 @@ def test_positive_enrich_observe_observables_file_path(module_headers):
 
     Importance: Critical
     """
-    observable = 'C:\\Windows\\SYSTEM32\\ntdll.dll'
+    observable = r'C:\Windows\SYSTEM32\ntdll.dll'
     observable_type = 'file_path'
+    external_id = '0F72C58F-1D01-4284-BB32-C53DD45B5C01'
 
     expected_observable = {
+        'description': (
+            'A process suspiciously tried to access the export address table '
+            '(EAT) to look for potentially useful APIs. This might indicate '
+            'an exploitation attempt. The process svchost.exe, with process '
+            'ID 404, tried accessing the Export Address table for module '
+            r'C:\\Windows\\SYSTEM32\\ntdll.dll and was blocked'),
         'schema_version': '1.0.12',
         'sensor': 'endpoint',
         'source': 'Microsoft Graph Security',
-        'type': 'sighting'
+        'external_ids': [external_id],
+        'type': 'sighting',
+        'title': 'Exploit Guard blocked dynamic code execution',
+        'severity': 'High'
     }
 
     # Get sightings
@@ -303,14 +313,13 @@ def test_positive_enrich_observe_observables_file_path(module_headers):
         **{'headers': module_headers}
     )['data']
     direct_observables = get_observables(response, 'Microsoft Graph Security')
-
-    # Check respond data
-    sightings = direct_observables['data']['sightings']
-    assert sightings['count'] == 2
-    sighting = sightings['docs'][0]
+    assert direct_observables['data']['sightings']['count'] == 2
+    current_observables = direct_observables['data']['sightings']['docs']
+    sighting = [
+        observable for observable in current_observables
+        if observable['external_ids'][0] == external_id
+    ][0]
     assert sighting['observables'] == observables
-    assert set(sighting['observed_time'].keys()) == {'start_time', 'end_time'}
-
     for key in expected_observable.keys():
         assert expected_observable[key] == sighting[key]
 

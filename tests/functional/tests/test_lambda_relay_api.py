@@ -12,7 +12,7 @@ from tests.functional.library.constants import OBSERVABLE_DICT
         "respond_observables",
         "respond_trigger"
 ))
-def test_positive_lambda_relay_api(relay_endpoint, relay_api):
+def test_positive_api(relay_endpoint, relay_api):
     """ Test relay api mock in Graph Security
 
     ID: CCTRI-357-2791fe6b-896a-4e8b-b2f6-0f8fce2b00fb
@@ -33,7 +33,7 @@ def test_positive_lambda_relay_api(relay_endpoint, relay_api):
         payload=observables).status_code == 200
 
 
-def test_positive_lambda_relay_observe_observables_domain(relay_api):
+def test_positive_observe_observables_domain(relay_api):
     """ Test relay observe observables api mock for domain in Graph Security
 
     ID: CCTRI-354-4c96ad24-5a16-449b-9120-0af449d546c6
