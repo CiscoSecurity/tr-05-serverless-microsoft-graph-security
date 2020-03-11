@@ -1,7 +1,11 @@
 import os
 
+from version import VERSION
+
 
 class Config:
+    VERSION = VERSION
+
     API_URL = 'https://graph.microsoft.com/v1.0/'
 
     AUTH_URL = 'https://login.microsoftonline.com/%s/oauth2/v2.0/token'
