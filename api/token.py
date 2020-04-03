@@ -2,6 +2,11 @@ import requests
 from authlib.jose import jwt
 from flask import session, current_app, request
 
+# The Graph Security API accepts the 'User-Agent'
+# header in the following format:
+#     {CompanyName}-{ProductName}/{Version}
+agent = 'Cisco-CiscoThreatResponseMicrosoftGraphSecurity/1.0.0'
+
 
 def token(fresh=False):
     """Returns an authorization token."""
@@ -27,7 +32,7 @@ def token(fresh=False):
             'scope': current_app.config['AUTH_SCOPE']
         }
 
-        response = requests.get(url, data=data)
+        response = requests.get(url, data=data, headers={'User-Agent': agent})
         response.raise_for_status()
         response = response.json()
 
@@ -39,7 +44,8 @@ def token(fresh=False):
 def headers(fresh=False):
     """Returns headers with an authorization token."""
     return {
-        'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token(fresh)
+        'Authorization': 'Bearer ' + token(fresh),
+        'Content-Type': 'application/json',
+        'User-Agent': agent
     }
