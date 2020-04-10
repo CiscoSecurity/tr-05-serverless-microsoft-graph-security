@@ -21,7 +21,7 @@ def test_domain_filter():
 
     assert url == (
         f"/security/alerts?$filter=networkConnections"
-        f"/any(x: x/destinationDomain eq 'http://danger.com')"
+        f"/any(x: x/destinationDomain eq 'http%3A%2F%2Fdanger.com')"
     )
 
 
