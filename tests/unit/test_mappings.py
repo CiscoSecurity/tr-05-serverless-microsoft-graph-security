@@ -17,11 +17,11 @@ def test_mapping_of():
 
 def test_domain_filter():
     mapping = Domain()
-    url = mapping.filter('http://danger.com')
+    url = mapping.filter('danger.com')
 
     assert url == (
         f"/security/alerts?$filter=networkConnections"
-        f"/any(x: x/destinationDomain eq 'http%3A%2F%2Fdanger.com')"
+        f"/any(x: x/destinationDomain eq 'danger.com')"
     )
 
 
@@ -94,7 +94,8 @@ def test_url_filter():
 
     assert url == (
         f"/security/alerts?$filter="
-        f"networkConnections/any(x: x/destinationUrl eq 'http://danger.com')"
+        f"networkConnections/any(x: x/destinationUrl eq "
+        f"'http%3A%2F%2Fdanger.com')"
     )
 
 
