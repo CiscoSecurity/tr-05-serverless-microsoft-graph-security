@@ -15,7 +15,7 @@ app.register_blueprint(respond.api)
 
 
 @app.errorhandler(HTTPError)
-def handle(ex: HTTPError):
+def handle_http(ex: HTTPError):
     code = ex.response.status_code
 
     def data(value):
@@ -41,7 +41,7 @@ def handle(ex: HTTPError):
 
 
 @app.errorhandler(Exception)
-def handle(ex: Exception):
+def handle_any(ex: Exception):
     code = getattr(ex, 'code', 500)
     message = getattr(ex, 'description', 'Something went wrong.')
 
