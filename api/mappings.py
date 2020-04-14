@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from http import HTTPStatus
+from urllib.parse import quote
 from uuid import uuid4
 
 import requests
@@ -208,7 +209,8 @@ class URL(Mapping):
 
     def filter(self, observable):
         return f"/security/alerts?$filter=" \
-               f"networkConnections/any(x: x/destinationUrl eq '{observable}')"
+               f"networkConnections/any(x: x/destinationUrl eq " \
+               f"'{quote(observable, safe='')}')"
 
     def map(self, observable, data):
         mapped = super(URL, self).map(observable, data)
