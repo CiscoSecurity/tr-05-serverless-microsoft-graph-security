@@ -1,5 +1,3 @@
-from itertools import chain
-
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.exceptions import BadRequest
 
@@ -13,26 +11,27 @@ api = Blueprint('enrich', __name__)
 def observe():
     observables = json(request, schema.observables)
 
-    def _observe(observable):
-        type_ = observable['type']
-        value = observable['value']
+    url = current_app.config['API_URL']
+    limit = current_app.config['CTR_ENTITIES_LIMIT']
 
-        url = current_app.config['API_URL']
+    def _observe(observable_, amount):
+        type_ = observable_['type']
+        value = observable_['value']
 
         mapping = Mapping.of(type_)
 
-        return mapping.get(url, value) if mapping is not None else []
+        return mapping.get(url, value, amount) if mapping is not None else []
 
-    data = (_observe(x) for x in observables)
-    data = chain.from_iterable(data)
-    data = list(data)
+    sightings = []
+    for observable in observables:
+        sightings.extend(_observe(observable, amount=limit - len(sightings)))
 
-    if data:
+    if sightings:
         return jsonify({
             'data': {
                 'sightings': {
-                    'count': len(data),
-                    'docs': data
+                    'count': len(sightings),
+                    'docs': sightings
                 }
             }
         })

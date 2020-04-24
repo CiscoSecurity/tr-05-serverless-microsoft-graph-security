@@ -120,7 +120,7 @@ def test_hostname_map():
 def assert_maps_correctly(mapping, path):
     with open('tests/unit/data/' + path) as file:
         data = json.loads(file.read())
-        output = mapping.map(data['observable'], data['input'])
+        output = mapping.sighting(data['observable'], data['input'])
 
         assert output.pop('id').startswith('transient:')
         assert output == data['output']
