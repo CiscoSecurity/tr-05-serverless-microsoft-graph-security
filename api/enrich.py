@@ -14,17 +14,17 @@ def observe():
     url = current_app.config['API_URL']
     limit = current_app.config['CTR_ENTITIES_LIMIT']
 
-    def _observe(observable_, amount):
+    def _observe(observable_):
         type_ = observable_['type']
         value = observable_['value']
 
         mapping = Mapping.of(type_)
 
-        return mapping.get(url, value, amount) if mapping is not None else []
+        return mapping.get(url, value, limit) if mapping is not None else []
 
     sightings = []
     for observable in observables:
-        sightings.extend(_observe(observable, amount=limit - len(sightings)))
+        sightings.extend(_observe(observable))
 
     if sightings:
         return jsonify({

@@ -22,13 +22,10 @@ class Mapping(metaclass=ABCMeta):
 
         return None
 
-    def get(self, base_url, observable, amount):
+    def get(self, base_url, observable, limit):
         """Retrieves Graph Security alerts and maps them to CTIM."""
 
-        if amount <= 0:
-            return []
-
-        url = join(base_url, self.filter(observable)) + f'&$top={amount}'
+        url = join(base_url, self.filter(observable)) + f'&$top={limit}'
 
         response = requests.get(url, headers=headers())
 
