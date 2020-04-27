@@ -22,10 +22,10 @@ class Mapping(metaclass=ABCMeta):
 
         return None
 
-    def get(self, base_url, observable):
+    def get(self, base_url, observable, limit):
         """Retrieves Graph Security alerts and maps them to CTIM."""
 
-        url = join(base_url, self.filter(observable))
+        url = join(base_url, self.filter(observable)) + f'&$top={limit}'
 
         response = requests.get(url, headers=headers())
 
@@ -36,7 +36,7 @@ class Mapping(metaclass=ABCMeta):
         response.raise_for_status()
         response = response.json()
 
-        return (self.map(observable, x) for x in response['value'])
+        return [self.sighting(observable, x) for x in response['value']]
 
     @classmethod
     @abstractmethod
@@ -47,8 +47,8 @@ class Mapping(metaclass=ABCMeta):
     def filter(self, observable):
         """Returns a relative URL to Graph Security to query alerts."""
 
-    def map(self, observable, data):
-        """Maps a Graph Security response to CTIM."""
+    def sighting(self, observable, data):
+        """Maps a Graph Security response to a CTIM sighting."""
         return {
             'id': f'transient:{uuid4()}',
             'confidence': confidence(data),
@@ -121,8 +121,8 @@ class Domain(Mapping):
             f"networkConnections/any(x: x/destinationDomain eq '{observable}')"
         )
 
-    def map(self, observable, data):
-        mapped = super(Domain, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(Domain, self).sighting(observable, data)
         mapped['relations'] = relations.network_connections(data)
 
         return mapped
@@ -138,8 +138,8 @@ class FileName(Mapping):
         return f"/security/alerts?$filter=" \
                f"fileStates/any(x: x/name eq '{observable}')"
 
-    def map(self, observable, data):
-        mapped = super(FileName, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(FileName, self).sighting(observable, data)
         mapped['relations'] = relations.file_states(data)
 
         return mapped
@@ -155,8 +155,8 @@ class FilePath(Mapping):
         return f"/security/alerts?$filter=" \
                f"fileStates/any(x: x/path eq '{observable}')"
 
-    def map(self, observable, data):
-        mapped = super(FilePath, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(FilePath, self).sighting(observable, data)
         mapped['relations'] = relations.file_states(data)
 
         return mapped
@@ -172,8 +172,8 @@ class SHA256(Mapping):
         return f"/security/alerts?$filter=" \
                f"fileStates/any(x: x/fileHash/hashValue eq '{observable}')"
 
-    def map(self, observable, data):
-        mapped = super(SHA256, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(SHA256, self).sighting(observable, data)
         mapped['relations'] = relations.file_states(data)
 
         return mapped
@@ -194,8 +194,8 @@ class IP(Mapping):
             f")"
         )
 
-    def map(self, observable, data):
-        mapped = super(IP, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(IP, self).sighting(observable, data)
         mapped['relations'] = relations.network_connections(data)
 
         return mapped
@@ -212,8 +212,8 @@ class URL(Mapping):
                f"networkConnections/any(x: x/destinationUrl eq " \
                f"'{quote(observable, safe='')}')"
 
-    def map(self, observable, data):
-        mapped = super(URL, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(URL, self).sighting(observable, data)
         mapped['relations'] = relations.network_connections(data)
 
         return mapped
@@ -229,8 +229,8 @@ class Hostname(Mapping):
         return f"/security/alerts?$filter="\
                f"hostStates/any(x: x/netBiosName eq '{observable}')"
 
-    def map(self, observable, data):
-        mapped = super(Hostname, self).map(observable, data)
+    def sighting(self, observable, data):
+        mapped = super(Hostname, self).sighting(observable, data)
         mapped['relations'] = relations.network_connections(data)
 
         return mapped
