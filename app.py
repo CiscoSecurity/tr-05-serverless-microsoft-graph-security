@@ -18,16 +18,21 @@ app.register_blueprint(respond.api)
 def handle_http(ex: HTTPError):
     code = ex.response.status_code
 
-    def data(value):
-        return jsonify({'data': value})
+    def empty():
+        return jsonify({})
 
     def error(**kwargs):
         return jsonify({'errors': [{'type': 'fatal', **kwargs}]})
 
     if code == HTTPStatus.BAD_REQUEST:
-        return data({})
+        return empty()
     if code == HTTPStatus.NOT_FOUND:
-        return data({})
+        return empty()
+    if code == HTTPStatus.TOO_MANY_REQUESTS:
+        return error(code='too many requests',
+                     message='Too many requests to Microsoft Graph Security '
+                             'have been made. '
+                             'Please try again later.')
     if code == HTTPStatus.UNAUTHORIZED:
         return error(code='access denied',
                      message='Access to Microsoft Graph Security denied.')
@@ -44,8 +49,12 @@ def handle_http(ex: HTTPError):
 def handle_any(ex: Exception):
     code = getattr(ex, 'code', 500)
     message = getattr(ex, 'description', 'Something went wrong.')
+    reason = '.'.join([
+        ex.__class__.__module__,
+        ex.__class__.__name__
+    ])
 
-    return jsonify(message=message, code=code), code
+    return jsonify(code=code, message=message, reason=reason), code
 
 
 if __name__ == '__main__':
