@@ -20,8 +20,8 @@ def test_domain_filter():
     url = mapping.filter('danger.com')
 
     assert url == (
-        f"/security/alerts?$filter=networkConnections"
-        f"/any(x: x/destinationDomain eq 'danger.com')"
+        "/security/alerts?$filter=networkConnections"
+        "/any(x: x/destinationDomain eq 'danger.com')"
     )
 
 
@@ -34,8 +34,8 @@ def test_file_name_filter():
     url = mapping.filter('danger.exe')
 
     assert url == (
-        f"/security/alerts?$filter="
-        f"fileStates/any(x: x/name eq 'danger.exe')"
+        "/security/alerts?$filter="
+        "fileStates/any(x: x/name eq 'danger.exe')"
     )
 
 
@@ -48,8 +48,8 @@ def test_file_path_filter():
     url = mapping.filter('c://danger.exe')
 
     assert url == (
-        f"/security/alerts?$filter="
-        f"fileStates/any(x: x/path eq 'c://danger.exe')"
+        "/security/alerts?$filter="
+        "fileStates/any(x: x/path eq 'c://danger.exe')"
     )
 
 
@@ -62,8 +62,8 @@ def test_sha256_filter():
     url = mapping.filter('deadbeef')
 
     assert url == (
-        f"/security/alerts?$filter="
-        f"fileStates/any(x: x/fileHash/hashValue eq 'deadbeef')"
+        "/security/alerts?$filter="
+        "fileStates/any(x: x/fileHash/hashValue eq 'deadbeef')"
     )
 
 
@@ -76,11 +76,11 @@ def test_ip_filter():
     url = mapping.filter('127.0.0.1')
 
     assert url == (
-        f"/security/alerts?$filter="
-        f"networkConnections/any(x: "
-        f"x/sourceAddress eq '127.0.0.1' or "
-        f"x/destinationAddress eq '127.0.0.1'"
-        f")"
+        "/security/alerts?$filter="
+        "networkConnections/any(x: "
+        "x/sourceAddress eq '127.0.0.1' or "
+        "x/destinationAddress eq '127.0.0.1'"
+        ")"
     )
 
 
@@ -93,9 +93,9 @@ def test_url_filter():
     url = mapping.filter('http://danger.com')
 
     assert url == (
-        f"/security/alerts?$filter="
-        f"networkConnections/any(x: x/destinationUrl eq "
-        f"'http%3A%2F%2Fdanger.com')"
+        "/security/alerts?$filter="
+        "networkConnections/any(x: x/destinationUrl eq "
+        "'http%3A%2F%2Fdanger.com')"
     )
 
 
@@ -108,8 +108,8 @@ def test_hostname_filter():
     url = mapping.filter('danger')
 
     assert url == (
-        f"/security/alerts?$filter="
-        f"hostStates/any(x: x/netBiosName eq 'danger')"
+        "/security/alerts?$filter="
+        "hostStates/any(x: x/netBiosName eq 'danger')"
     )
 
 
