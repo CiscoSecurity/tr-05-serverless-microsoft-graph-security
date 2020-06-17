@@ -47,6 +47,9 @@ def test_positive_enrich_observe_observables_sha256(module_headers):
     direct_observables = get_observables(response, 'Microsoft Graph Security')
 
     # Check respond data
+    assert direct_observables['module'] == 'Microsoft Graph Security'
+    assert direct_observables['module_instance_id']
+    assert direct_observables['module_type_id']
     sightings = direct_observables['data']['sightings']
     assert sightings['count'] == 2
     sighting = sightings['docs'][0]
