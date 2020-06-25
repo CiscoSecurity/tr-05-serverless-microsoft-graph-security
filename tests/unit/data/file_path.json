@@ -109,7 +109,6 @@
         "url": "https://beta.securitycenter.windows.com/alert/1872609273_636353916002745581"
       }
     ],
-    "internal": true,
     "observables": [
       {
         "type": "file_path",

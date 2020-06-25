@@ -108,7 +108,6 @@
         "url": "https://securitycenter.windows.com/alerts/4fdecbad-1b66-4b9f-88ae-d81e33f30d0b"
       }
     ],
-    "internal": true,
     "observables": [
       {
         "type": "ip",
