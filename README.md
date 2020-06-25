@@ -283,5 +283,31 @@ header set to `Bearer <JWT>`.
 ### CTIM Mapping Specifics
 
 Each Microsoft Graph Security [alert](https://docs.microsoft.com/en-us/graph/api/resources/alert?view=graph-rest-1.0) 
-related to a supported observable is mapped to a single CTIM `Sighting`.
+related to a supported observable is mapped to a single CTIM `Sighting` in a straightforward way 
+(for example, `description` of an alert is mapped to a `description` of a sighting, and so on).
 
+However, there are a few things that should be noted.
+
+- `confidence` of an alert is represented as an integer value ranging from 0 to 100.
+  This value is mapped to `confidence` of a `Sighting` as follows:
+  - A range from 0  to 33  (inclusive) corresponds to `Low`.
+  - A range from 34 to 66  (inclusive) corresponds to `Medium`.
+  - A range from 67 to 100 (inclusive) corresponds to `High`.
+
+- `targets` of a `Sighting` are based on `hostStates` of an alert. Each `hostState` is mapped to `target`, 
+  so that the `target.observables` field contains the following fields from `hostState`:
+  - `hostState.publicIpAddress` as `ip`;
+  - `hostState.privateIpAddress` as `ip`;
+  - `hostState.netBiosName` as `hostname`;
+  - `hostState.fqdn` as `domain`.
+
+- `sensor` of a `Sighting` is based on `vendorInformation.provider` and `vendorInformation.subProvider` of an alert.
+  The mapping is defined as follows:
+
+  | Provider             | Subprovider       | Sensor             |
+  |----------------------|-------------------|--------------------|
+  | Windows Defender ATP |                   | `endpoint`         |
+  | Palo Alto Networks   | Traps             | `endpoint`         |
+  | Palo Alto Networks   | NGFW, NG Firewall | `network.firewall` |
+
+  Any other combination of `vendorInformation.provider` and `vendorInformation.subProvider` is mapped to `endpoint`.

@@ -49,6 +49,7 @@ class Mapping(metaclass=ABCMeta):
 
     def sighting(self, observable, data):
         """Maps a Graph Security response to a CTIM sighting."""
+
         return {
             'id': f'transient:sighting-{uuid4()}',
             'confidence': confidence(data),
