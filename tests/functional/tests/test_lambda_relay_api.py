@@ -149,7 +149,10 @@ def test_negative_observable_empty_body(relay_api):
 
     Importance: Low
     """
+
     response = relay_api.observe_observables(payload=None)
 
     assert response.status_code == 200
-    assert response.json()['message'] == 'Something went wrong.'
+    assert response.json()['errors'] == [{'type': 'fatal',
+                                          'code': 'oops',
+                                          'message': 'Something went wrong.'}]
