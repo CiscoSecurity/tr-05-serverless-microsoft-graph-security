@@ -1,9 +1,9 @@
 {
   "name": "Microsoft Graph Security",
   "jwt": {
-    "application_id": "<APPLICATION-ID>",
-    "tenant_id": "<TENANT-ID>",
-    "client_secret": "<CLIENT-SECRET>"
+    "application_id": "Application ID",
+    "tenant_id": "Tenant ID",
+    "client_secret": "Client Secret"
   },
   "region": {
     "us": "33fa22a5-3369-46eb-aa6b-3386984aaf0b",
