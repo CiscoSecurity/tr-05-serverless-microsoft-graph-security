@@ -110,7 +110,6 @@
         "url": "https://securitycenter.windows.com/alerts/19506a6b-e7eb-4106-a932-3691839b9b4f"
       }
     ],
-    "internal": true,
     "observables": [
       {
         "type": "domain",

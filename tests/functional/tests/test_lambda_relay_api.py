@@ -144,12 +144,15 @@ def test_negative_observable_empty_body(relay_api):
         does not exist.
 
     Expectedresults:
-        1. Status code == 400
-        2. Error message == "Invalid JSON format."
+        1. Status code == 200
+        2. Error message == "Something went wrong."
 
     Importance: Low
     """
+
     response = relay_api.observe_observables(payload=None)
 
-    assert response.status_code == 400
-    assert (response.json()['message'] == 'Invalid JSON format.')
+    assert response.status_code == 200
+    assert response.json()['errors'] == [{'type': 'fatal',
+                                          'code': 'oops',
+                                          'message': 'Something went wrong.'}]
