@@ -62,15 +62,10 @@ def test_positive_observe_observables_domain(relay_api):
         'type': 'sighting'
     }
 
-    # Get sightings.
+    # Get sightings
     observables = [{"value": observable, "type": observable_type}]
-
-    json = relay_api.observe_observables(payload=observables).json()
-
-    assert 'data' in json and 'sightings' in json['data'], \
-        f"Expected a response with 'data.sightings', but got {json}."
-
-    sightings = json['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 1
@@ -105,12 +100,8 @@ def test_positive_sighting_complex_sightings(relay_api):
     observables = [{"value": observable_1, "type": observable_type_1},
                    {"value": observable_2, "type": observable_type_2}]
 
-    json = relay_api.observe_observables(payload=observables).json()
-
-    assert 'data' in json and 'sightings' in json['data'], \
-        f"Expected a response with 'data.sightings', but got {json}."
-
-    sightings = json['data']['sightings']
+    sightings = relay_api.observe_observables(
+        payload=observables).json()['data']['sightings']
 
     # Check respond data
     assert sightings['count'] == 2
@@ -137,13 +128,10 @@ def test_domain_negative_observable_does_not_exist(relay_api):
     observable = 'qweeeeeeertrty.com'
     observables = [{'value': observable, 'type': 'domain'}]
 
-    # Check the response.
-    json = relay_api.observe_observables(payload=observables).json()
-
-    assert 'data' in json, \
-        f"Expected a response with 'data', but got {json}."
-
-    assert json['data'] == {}
+    # Check respond data
+    sightings = relay_api.observe_observables(
+        payload=observables).json()
+    assert sightings['data'] == {}
 
 
 def test_negative_observable_empty_body(relay_api):
