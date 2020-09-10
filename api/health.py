@@ -18,10 +18,5 @@ def health():
     if response.status_code == HTTPStatus.UNAUTHORIZED.value:
         response = requests.get(url, headers=headers(fresh=True))
 
-    if response.ok:
-        return jsonify({'data': {'status': 'ok'}})
-    else:
-        error = response.json()
-        error['type'] = 'error'
-
-        return jsonify({'errors': [error]})
+    response.raise_for_status()
+    return jsonify({'data': {'status': 'ok'}})

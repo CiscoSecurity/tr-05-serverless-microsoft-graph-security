@@ -1,0 +1,30 @@
+[
+  {
+    "type": "ip",
+    "value": "10.8.168.41"
+  },
+  {
+    "type": "domain",
+    "value": "www.febrikam.com"
+  },
+  {
+    "type": "url",
+    "value": "http://register.fabricam.com/start.php"
+  },
+  {
+    "type": "hostname",
+    "value": "DT-ALDOM"
+  },
+  {
+    "type": "sha256",
+    "value": "091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19"
+  },
+  {
+    "type": "file_path",
+    "value": "C:\\Windows\\SYSTEM32\\ntdll.dll"
+  },
+  {
+    "type": "file_name",
+    "value": "photoview1sp.jpg"
+  }
+]
