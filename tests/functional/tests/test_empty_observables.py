@@ -48,4 +48,3 @@ def test_positive_smoke_empty_observables(module_headers, observable,
     assert direct_observables['module_type_id']
 
     assert direct_observables['data'] == {}
-
