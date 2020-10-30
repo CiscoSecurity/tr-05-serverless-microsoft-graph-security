@@ -2,6 +2,7 @@ from ctrlibrary.threatresponse.enrich import enrich_observe_observables
 from ctrlibrary.core.utils import get_observables
 from tests.functional.library.constants import MODULE_NAME
 
+
 def test_positive_enrich_observe_observables_sha256(module_headers):
     """Perform testing for enrich observe observables endpoint for sha256 in
     Graph Security module
