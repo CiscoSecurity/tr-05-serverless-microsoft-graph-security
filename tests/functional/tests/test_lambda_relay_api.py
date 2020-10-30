@@ -57,7 +57,7 @@ def test_positive_observe_observables_domain(relay_api):
         'schema_version': '1.0.12',
         'sensor': 'endpoint',
         'severity': 'Low',
-        'source': 'Microsoft Graph Security API',
+        'source': 'Microsoft Graph Security',
         'title': 'Connection to newly registered domain',
         'type': 'sighting'
     }
