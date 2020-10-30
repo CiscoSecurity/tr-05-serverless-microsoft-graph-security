@@ -75,7 +75,7 @@ def test_positive_enrich_observe_observables_domain(module_headers):
 
     Importance: Critical
     """
-    observable = 'www.febrikam.com'
+    observable = 'willaimsclarke.com'
     observable_type = 'domain'
 
     expected_observable = {
