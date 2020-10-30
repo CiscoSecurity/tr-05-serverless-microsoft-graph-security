@@ -8,4 +8,4 @@ OBSERVABLE_DICT = {
     'C:\\Windows\\SYSTEM32\\ntdll.dll': 'file_path',
     'photoview1sp.jpg': 'file_name',
 }
-MODULE_NAME = 'Microsoft Graph Security'
+MODULE_NAME = 'Microsoft Graph Security API'
