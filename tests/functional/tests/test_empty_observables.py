@@ -6,14 +6,14 @@ from tests.functional.library.constants import MODULE_NAME
 
 @pytest.mark.parametrize(
     'observable, observable_type',
-    (('test.org', 'domain'),
-     ('4.3.1.4', 'ip'),
-     ('23E83E60311A7F2892A8DD30CA07B6ADAE56BC2A246EDE2E9B5200EF7C2D61F6',
+    (('willaimsclarke.com', 'domain'),
+     ('61.23.79.168', 'ip'),
+     ('091835b16192e526ee1b8a04d0fcef534544cad306672066f2ad6973a4b18b19',
       'sha256'),
-     ('test', 'hostname'),
-     ('http://register.fabricam.com', 'url'),
-     (r'C:\Users\Users\Downloads\Malware', 'file_path'),
-     ('test.exe', 'file_name'))
+     ('lap-douglasf', 'hostname'),
+     ('http://willaimsclarke.com/lee/fre.php', 'url'),
+     (r'C:\Windows\SYSTEM32\ntdll.dll', 'file_path'),
+     ('ntdll.dll', 'file_name'))
 )
 def test_positive_smoke_empty_observables(module_headers, observable,
                                           observable_type):
