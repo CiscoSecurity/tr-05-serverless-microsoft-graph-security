@@ -38,10 +38,7 @@ def test_positive_smoke_empty_observables(module_headers, observable,
         **{'headers': module_headers}
     )
 
-    microsoft_graph_security_data = response['data']
-
-    direct_observables = get_observables(microsoft_graph_security_data,
-                                         MODULE_NAME)
+    direct_observables = get_observables(response, MODULE_NAME)
 
     assert direct_observables['module'] == MODULE_NAME
     assert direct_observables['module_instance_id']

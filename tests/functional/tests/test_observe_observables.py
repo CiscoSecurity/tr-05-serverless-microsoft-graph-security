@@ -1,6 +1,6 @@
 from ctrlibrary.threatresponse.enrich import enrich_observe_observables
 from ctrlibrary.core.utils import get_observables
-
+from tests.functional.library.constants import MODULE_NAME
 
 def test_positive_enrich_observe_observables_sha256(module_headers):
     """Perform testing for enrich observe observables endpoint for sha256 in
@@ -43,11 +43,12 @@ def test_positive_enrich_observe_observables_sha256(module_headers):
     response = enrich_observe_observables(
         payload=observables,
         **{'headers': module_headers}
-    )['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
 
     # Check respond data
-    assert direct_observables['module'] == 'Microsoft Graph Security'
+    assert direct_observables['module'] == MODULE_NAME
     assert direct_observables['module_instance_id']
     assert direct_observables['module_type_id']
     sightings = direct_observables['data']['sightings']
@@ -95,8 +96,10 @@ def test_positive_enrich_observe_observables_domain(module_headers):
     observables = [{"value": observable, "type": observable_type}]
     response = enrich_observe_observables(
         payload=observables,
-        **{'headers': module_headers})['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+        **{'headers': module_headers}
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
 
     # Check respond data
     sightings = direct_observables['data']['sightings']
@@ -152,8 +155,9 @@ def test_positive_enrich_observe_observables_ip(module_headers):
     response = enrich_observe_observables(
         payload=observables,
         **{'headers': module_headers}
-    )['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
 
     # Check respond data
     sightings = direct_observables['data']['sightings']
@@ -206,8 +210,9 @@ def test_positive_enrich_observe_observables_url(module_headers):
     response = enrich_observe_observables(
         payload=observables,
         **{'headers': module_headers}
-    )['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
 
     # Check respond data
     sightings = direct_observables['data']['sightings']
@@ -259,8 +264,9 @@ def test_positive_enrich_observe_observables_hostname(module_headers):
     response = enrich_observe_observables(
         payload=observables,
         **{'headers': module_headers}
-    )['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
 
     # Check respond data
     sightings = direct_observables['data']['sightings']
@@ -314,8 +320,10 @@ def test_positive_enrich_observe_observables_file_path(module_headers):
     response = enrich_observe_observables(
         payload=observables,
         **{'headers': module_headers}
-    )['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
+
     assert direct_observables['data']['sightings']['count'] == 2
     current_observables = direct_observables['data']['sightings']['docs']
     sighting = [
@@ -367,8 +375,9 @@ def test_positive_enrich_observe_observables_file_name(module_headers):
     response = enrich_observe_observables(
         payload=observables,
         **{'headers': module_headers}
-    )['data']
-    direct_observables = get_observables(response, 'Microsoft Graph Security')
+    )
+
+    direct_observables = get_observables(response, MODULE_NAME)
 
     # Check respond data
     sightings = direct_observables['data']['sightings']
