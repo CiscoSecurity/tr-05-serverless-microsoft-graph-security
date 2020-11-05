@@ -47,7 +47,6 @@ class Mapping(metaclass=ABCMeta):
     def filter(self, observable):
         """Returns a relative URL to Graph Security to query alerts."""
 
-
     def sighting(self, observable, data):
         """Maps a Graph Security response to a CTIM sighting."""
 
