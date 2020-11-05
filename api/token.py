@@ -1,10 +1,11 @@
 import requests
-from authlib.jose import jwt
-from flask import session, current_app, request
+from flask import session, current_app
 
 # The Graph Security API accepts the 'User-Agent'
 # header in the following format:
 #     {CompanyName}-{ProductName}/{Version}
+from api.utils import get_credentials
+
 agent = 'Cisco-CiscoThreatResponseMicrosoftGraphSecurity/1.0.0'
 
 
@@ -12,22 +13,13 @@ def token(fresh=False):
     """Returns an authorization token."""
 
     if fresh or 'token' not in session:
-        scheme, payload = request.headers['Authorization'].split(None, 1)
+        credentials = get_credentials()
 
-        if scheme.lower() != 'bearer':
-            raise ValueError('Expected the scheme to be "Bearer".')
-
-        credentials = jwt.decode(payload, current_app.config['SECRET_KEY'])
-
-        app_id = credentials['application_id']
-        tenant = credentials['tenant_id']
-        secret = credentials['client_secret']
-
-        url = current_app.config['AUTH_URL'] % tenant
+        url = current_app.config['AUTH_URL'] % credentials['tenant_id']
 
         data = {
-            'client_id': app_id,
-            'client_secret': secret,
+            'client_id': credentials['application_id'],
+            'client_secret': credentials['client_secret'],
             'grant_type': 'client_credentials',
             'scope': current_app.config['AUTH_SCOPE']
         }

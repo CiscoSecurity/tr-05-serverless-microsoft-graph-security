@@ -1,15 +1,19 @@
-from flask import Blueprint, request, jsonify, current_app
-from werkzeug.exceptions import BadRequest
+from functools import partial
 
-from . import schema
+from flask import Blueprint, jsonify, current_app
+
 from .mappings import Mapping
+from .schema import ObservableSchema
+from .utils import get_json
 
 api = Blueprint('enrich', __name__)
+
+get_observables = partial(get_json, schema=ObservableSchema(many=True))
 
 
 @api.route('/observe/observables', methods=['POST'])
 def observe():
-    observables = json(request, schema.observables)
+    observables = get_observables()
 
     url = current_app.config['API_URL']
     limit = current_app.config['CTR_ENTITIES_LIMIT']
@@ -57,15 +61,3 @@ def deliberate():
 @api.route('/refer/observables', methods=['POST'])
 def refer():
     return jsonify({'data': []})
-
-
-def json(request_, schema_):
-    """Parses the body of a request as JSON according to a provided schema."""
-
-    body = request_.get_json(force=True, silent=True, cache=False)
-    error = schema_.validate(body) or None
-
-    if error is not None:
-        raise BadRequest('Invalid JSON format.')
-
-    return body

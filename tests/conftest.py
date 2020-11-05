@@ -7,6 +7,7 @@ from authlib.jose import jwt
 from pytest import fixture
 from requests import HTTPError
 
+from api.errors import INVALID_ARGUMENT
 from app import app
 
 
@@ -94,7 +95,11 @@ def graph_api_response_mock(status_code, text=None, json_=None):
 def graph_response_unauthorized_creds(secret_key):
     return graph_api_response_mock(
         HTTPStatus.UNAUTHORIZED,
-        json_={'detail': 'Error: Bad API key'}
+        json_={
+            'error': 'invalid_client',
+            'error_description':
+                'AADSTS7000215: Invalid client secret is provided.'
+        }
     )
 
 
@@ -138,6 +143,20 @@ def sslerror_expected_payload():
 
 
 @fixture(scope='module')
+def invalid_json_expected_payload():
+    return {
+        'errors': [
+            {
+                'code': INVALID_ARGUMENT,
+                'message':
+                    'Invalid JSON payload received. {"0": {"value": '
+                    '["Missing data for required field."]}}',
+                'type': 'fatal'}
+        ]
+    }
+
+
+@fixture(scope='module')
 def fatal_error_expected_payload():
     return {
         'errors': [
@@ -159,19 +178,6 @@ def service_unavailable_expected_payload():
                 'code': 'service unavailable',
                 'message': 'Service temporarily unavailable.'
                            ' Please try again later.',
-            }
-        ]
-    }
-
-
-@fixture(scope='module')
-def unauthorised_creds_expected_payload():
-    return {
-        'errors': [
-            {
-                'code': 'access denied',
-                'message': 'Access to Microsoft Graph Security denied.',
-                'type': 'fatal'
             }
         ]
     }
