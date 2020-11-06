@@ -2,8 +2,6 @@ from abc import ABCMeta, abstractmethod
 from urllib.parse import quote
 from uuid import uuid4
 
-from flask import current_app
-
 from . import relations
 from .client import get_data
 from .utils import url_join
