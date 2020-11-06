@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from urllib.parse import quote
-from uuid import uuid4, uuid5
+from uuid import uuid4
 
 from flask import current_app
 
@@ -41,17 +41,11 @@ class Mapping(metaclass=ABCMeta):
     def filter(self, observable):
         """Returns a relative URL to Graph Security to query alerts."""
 
-    @staticmethod
-    def get_transient_id(entity_type, base_value=None):
-        uuid = (uuid5(current_app.config['NAMESPACE_BASE'], base_value)
-                if base_value else uuid4())
-        return f'transient:{entity_type}-{uuid}'
-
     def sighting(self, observable, data):
         """Maps a Graph Security response to a CTIM sighting."""
 
         return {
-            'id': self.get_transient_id('transient', data['id']),
+            'id': f'transient:sighting-{uuid4()}',
             'confidence': confidence(data),
             'count': 1,
             'description': data['description'],

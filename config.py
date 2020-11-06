@@ -1,6 +1,5 @@
 import os
 from typing import Any
-from uuid import NAMESPACE_X500
 
 from version import VERSION
 
@@ -29,5 +28,3 @@ class Config:
     CTR_ENTITIES_LIMIT = \
         positive_int(os.environ.get('CTR_ENTITIES_LIMIT'),
                      default=100)
-
-    NAMESPACE_BASE = NAMESPACE_X500
