@@ -34,6 +34,7 @@ OBSERVABLE_TYPE_CHOICES = (
     'ipv6',
     'mac_address',
     'md5',
+    'ms_machine_id',
     'mutex',
     'ngfw_id',
     'ngfw_name',
@@ -45,13 +46,12 @@ OBSERVABLE_TYPE_CHOICES = (
     'registry_key',
     'registry_name',
     'registry_path',
+    's1_agent_id',
     'sha1',
     'sha256',
     'url',
     'user',
-    'user_agent',
-    'ms_machine_id',
-    's1_agent_id'
+    'user_agent'
 )
 
 
