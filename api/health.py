@@ -1,22 +1,13 @@
-from http import HTTPStatus
+from flask import Blueprint, current_app
 
-import requests
-from flask import Blueprint, jsonify, current_app
-
-from .token import headers
-from .url import join
+from .client import get_data
+from .utils import jsonify_data, url_join
 
 api = Blueprint('health', __name__)
 
 
 @api.route('/health', methods=['POST'])
 def health():
-    url = join(current_app.config['API_URL'], '/security/alerts?$top=0')
-    response = requests.get(url, headers=headers())
-
-    # Refresh the token if expired.
-    if response.status_code == HTTPStatus.UNAUTHORIZED.value:
-        response = requests.get(url, headers=headers(fresh=True))
-
-    response.raise_for_status()
-    return jsonify({'data': {'status': 'ok'}})
+    url = url_join(current_app.config['API_URL'], '/security/alerts?$top=0')
+    get_data(url)
+    return jsonify_data({'status': 'ok'})

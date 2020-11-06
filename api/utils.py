@@ -85,7 +85,7 @@ def jsonify_result():
     result = {'data': {}}
 
     if g.get('sightings'):
-        result['data']['sightings'] = format_docs(g.verdicts)
+        result['data']['sightings'] = format_docs(g.sightings)
 
     if g.get('errors'):
         result['errors'] = g.errors
@@ -100,14 +100,8 @@ def add_error(error):
     g.errors = [*g.get('errors', []), error.json]
 
 
-def all_subclasses(cls):
-    """
-    Retrieve set of class subclasses recursively.
-
-    """
-    subclasses = set(cls.__subclasses__())
-    return subclasses.union(s for c in subclasses for s in all_subclasses(c))
-
-
-def time_format(time):
-    return f'{time.isoformat(timespec="seconds")}Z'
+def url_join(base, *parts):
+    return '/'.join(
+        [base.rstrip('/')] +
+        [part.strip('/') for part in parts]
+    )

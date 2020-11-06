@@ -124,7 +124,7 @@ def test_call_with_unauthorized_creds(
         route, client, valid_jwt, valid_json,
         graph_response_unauthorized_creds
 ):
-    with patch('api.token.token') as token_mock, \
+    with patch('api.client.token') as token_mock, \
             patch('requests.get') as requests_mock:
         token_mock.return_value = 'TOKEN'
         requests_mock.return_value = graph_response_unauthorized_creds

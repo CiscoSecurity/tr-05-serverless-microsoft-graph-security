@@ -1,10 +1,10 @@
 from functools import partial
 
-from flask import Blueprint, jsonify, current_app
+from flask import Blueprint, current_app, g
 
 from .mappings import Mapping
 from .schema import ObservableSchema
-from .utils import get_json
+from .utils import get_json, jsonify_result, jsonify_data
 
 api = Blueprint('enrich', __name__)
 
@@ -26,38 +26,19 @@ def observe():
 
         return mapping.get(url, value, limit) if mapping is not None else []
 
-    def data(sightings):
-        if sightings:
-            return {
-                'data': {
-                    'sightings': {
-                        'count': len(sightings),
-                        'docs': sightings
-                    }
-                }
-            }
-        else:
-            return {'data': {}}
+    g.sightings = []
 
-    sightings = []
+    for observable in observables:
+        g.sightings.extend(observe(observable))
 
-    try:
-        for observable in observables:
-            sightings.extend(observe(observable))
-    except Exception as ex:
-        if sightings:
-            setattr(ex, 'data', data(sightings))
-
-        raise
-
-    return jsonify(data(sightings))
+    return jsonify_result()
 
 
 @api.route('/deliberate/observables', methods=['POST'])
 def deliberate():
-    return jsonify({'data': {}})
+    return jsonify_data({})
 
 
 @api.route('/refer/observables', methods=['POST'])
 def refer():
-    return jsonify({'data': []})
+    return jsonify_data([])
