@@ -23,7 +23,7 @@ class Config:
     AUTH_URL = 'https://login.microsoftonline.com/%s/oauth2/v2.0/token'
     AUTH_SCOPE = 'https://graph.microsoft.com/.default'
 
-    SECRET_KEY = os.environ.get('SECRET_KEY', '')
+    SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
     CTR_ENTITIES_LIMIT = \
         positive_int(os.environ.get('CTR_ENTITIES_LIMIT'),

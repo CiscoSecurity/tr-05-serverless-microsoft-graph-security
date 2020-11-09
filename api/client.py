@@ -32,9 +32,11 @@ def token(fresh=False):
 
             response = requests.get(url, data=data,
                                     headers={'User-Agent': agent})
-            response.raise_for_status()
-            response = response.json()
 
+            if not response.ok:
+                raise CriticalResponseError(response)
+
+            response = response.json()
             session['token'] = response['access_token']
 
         return session['token']
