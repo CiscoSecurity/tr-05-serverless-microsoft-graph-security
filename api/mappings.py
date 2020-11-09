@@ -1,13 +1,10 @@
 from abc import ABCMeta, abstractmethod
-from http import HTTPStatus
 from urllib.parse import quote
 from uuid import uuid4
 
-import requests
-
 from . import relations
-from .token import headers
-from .url import join
+from .client import get_data
+from .utils import url_join
 
 
 class Mapping(metaclass=ABCMeta):
@@ -25,18 +22,13 @@ class Mapping(metaclass=ABCMeta):
     def get(self, base_url, observable, limit):
         """Retrieves Graph Security alerts and maps them to CTIM."""
 
-        url = join(base_url, self.filter(observable)) + f'&$top={limit}'
+        url = url_join(base_url, self.filter(observable)) + f'&$top={limit}'
 
-        response = requests.get(url, headers=headers())
+        response = get_data(url)
 
-        # Refresh the token if expired.
-        if response.status_code == HTTPStatus.UNAUTHORIZED.value:
-            response = requests.get(url, headers=headers(fresh=True))
-
-        response.raise_for_status()
-        response = response.json()
-
-        return [self.sighting(observable, x) for x in response['value']]
+        return [
+            self.sighting(observable, x) for x in response.get('value', [])
+        ]
 
     @classmethod
     @abstractmethod

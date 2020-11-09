@@ -1,15 +1,19 @@
-from flask import Blueprint, request, jsonify, current_app
-from werkzeug.exceptions import BadRequest
+from functools import partial
 
-from . import schema
+from flask import Blueprint, current_app, g
+
 from .mappings import Mapping
+from .schema import ObservableSchema
+from .utils import get_json, jsonify_result, jsonify_data
 
 api = Blueprint('enrich', __name__)
+
+get_observables = partial(get_json, schema=ObservableSchema(many=True))
 
 
 @api.route('/observe/observables', methods=['POST'])
 def observe():
-    observables = json(request, schema.observables)
+    observables = get_observables()
 
     url = current_app.config['API_URL']
     limit = current_app.config['CTR_ENTITIES_LIMIT']
@@ -22,50 +26,19 @@ def observe():
 
         return mapping.get(url, value, limit) if mapping is not None else []
 
-    def data(sightings):
-        if sightings:
-            return {
-                'data': {
-                    'sightings': {
-                        'count': len(sightings),
-                        'docs': sightings
-                    }
-                }
-            }
-        else:
-            return {'data': {}}
+    g.sightings = []
 
-    sightings = []
+    for observable in observables:
+        g.sightings.extend(observe(observable))
 
-    try:
-        for observable in observables:
-            sightings.extend(observe(observable))
-    except Exception as ex:
-        if sightings:
-            setattr(ex, 'data', data(sightings))
-
-        raise
-
-    return jsonify(data(sightings))
+    return jsonify_result()
 
 
 @api.route('/deliberate/observables', methods=['POST'])
 def deliberate():
-    return jsonify({'data': {}})
+    return jsonify_data({})
 
 
 @api.route('/refer/observables', methods=['POST'])
 def refer():
-    return jsonify({'data': []})
-
-
-def json(request_, schema_):
-    """Parses the body of a request as JSON according to a provided schema."""
-
-    body = request_.get_json(force=True, silent=True, cache=False)
-    error = schema_.validate(body) or None
-
-    if error is not None:
-        raise BadRequest('Invalid JSON format.')
-
-    return body
+    return jsonify_data([])

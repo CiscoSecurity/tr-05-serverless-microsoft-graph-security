@@ -5,8 +5,8 @@ from unittest.mock import MagicMock
 
 from authlib.jose import jwt
 from pytest import fixture
-from requests import HTTPError
 
+from api.errors import INVALID_ARGUMENT
 from app import app
 
 
@@ -62,21 +62,6 @@ def invalid_jwt(valid_jwt):
 
 
 def graph_api_response_mock(status_code, text=None, json_=None):
-    def raise_for_status(self):
-        http_error_msg = ''
-        if 400 <= self.status_code < 500:
-            http_error_msg = u'%s Client Error: %s for url: %s' % (
-                self.status_code, 'reason', self.url
-            )
-
-        elif 500 <= self.status_code < 600:
-            http_error_msg = u'%s Server Error: %s for url: %s' % (
-                self.status_code, 'reason', self.url
-            )
-
-        if http_error_msg:
-            raise HTTPError(http_error_msg, response=self)
-
     mock_response = MagicMock()
 
     mock_response.status_code = status_code
@@ -85,8 +70,6 @@ def graph_api_response_mock(status_code, text=None, json_=None):
     mock_response.text = text
     mock_response.json = lambda: json_ or {}
 
-    mock_response.raise_for_status = lambda: raise_for_status(mock_response)
-
     return mock_response
 
 
@@ -94,7 +77,24 @@ def graph_api_response_mock(status_code, text=None, json_=None):
 def graph_response_unauthorized_creds(secret_key):
     return graph_api_response_mock(
         HTTPStatus.UNAUTHORIZED,
-        json_={'detail': 'Error: Bad API key'}
+        json_={
+            'error': 'invalid_client',
+            'error_description':
+                'AADSTS7000215: Invalid client secret is provided.'
+        }
+    )
+
+
+@fixture(scope='session')
+def graph_response_not_found(secret_key):
+    return graph_api_response_mock(
+        HTTPStatus.NOT_FOUND,
+        json_={
+            'error': {
+                'code': 'ResourceNotFound',
+                'message': 'Resource not found'
+                }
+        }
     )
 
 
@@ -138,14 +138,15 @@ def sslerror_expected_payload():
 
 
 @fixture(scope='module')
-def fatal_error_expected_payload():
+def invalid_json_expected_payload():
     return {
         'errors': [
             {
-                'type': 'fatal',
-                'code': 'oops',
-                'message': 'Something went wrong.'
-            }
+                'code': INVALID_ARGUMENT,
+                'message':
+                    'Invalid JSON payload received. {"0": {"value": '
+                    '["Missing data for required field."]}}',
+                'type': 'fatal'}
         ]
     }
 
@@ -159,19 +160,6 @@ def service_unavailable_expected_payload():
                 'code': 'service unavailable',
                 'message': 'Service temporarily unavailable.'
                            ' Please try again later.',
-            }
-        ]
-    }
-
-
-@fixture(scope='module')
-def unauthorised_creds_expected_payload():
-    return {
-        'errors': [
-            {
-                'code': 'access denied',
-                'message': 'Access to Microsoft Graph Security denied.',
-                'type': 'fatal'
             }
         ]
     }

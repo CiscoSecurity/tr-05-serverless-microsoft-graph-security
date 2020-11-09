@@ -153,6 +153,11 @@ def test_negative_observable_empty_body(relay_api):
     response = relay_api.observe_observables(payload=None)
 
     assert response.status_code == 200
-    assert response.json()['errors'] == [{'type': 'fatal',
-                                          'code': 'oops',
-                                          'message': 'Something went wrong.'}]
+    assert response.json()['errors'] == [
+        {
+            'code': 'invalid argument',
+            'message':
+                'Invalid JSON payload received. '
+                '{"_schema": ["Invalid input type."]}',
+            'type': 'fatal'}
+    ]

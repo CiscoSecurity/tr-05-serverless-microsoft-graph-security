@@ -16,41 +16,6 @@ def route(request):
     return request.param
 
 
-def test_health_call_without_jwt(
-        route, client, fatal_error_expected_payload
-):
-    response = client.post(route)
-
-    assert response.status_code == HTTPStatus.OK
-    assert response.json == fatal_error_expected_payload
-
-
-def test_health_call_with_invalid_jwt(
-        route, client, invalid_jwt, fatal_error_expected_payload
-):
-    response = client.post(route, headers=headers(invalid_jwt))
-
-    assert response.status_code == HTTPStatus.OK
-    assert response.json == fatal_error_expected_payload
-
-
-def test_health_call_with_unauthorized_creds(
-    route, client, valid_jwt,
-    graph_response_unauthorized_creds,
-    unauthorised_creds_expected_payload
-
-):
-    with patch('requests.get') as get_mock:
-        get_mock.return_value = graph_response_unauthorized_creds
-
-        response = client.post(
-            route, headers=headers(valid_jwt)
-        )
-
-        assert response.status_code == HTTPStatus.OK
-        assert response.json == unauthorised_creds_expected_payload
-
-
 def test_health_call_with_http_error(
     route, client, valid_jwt,
         graph_response_token,
