@@ -241,6 +241,9 @@ header set to `Bearer <JWT>`.
   - Maps the fetched data into appropriate CTIM entities.
   - Returns a list per each of the following CTIM entities (if any extracted):
     - `Sighting`.
+    
+- `POST /version`
+  - Returns the current version of the application.
 
 ### Supported Types of Observables
 
