@@ -12,7 +12,7 @@ from api.utils import get_credentials
 # The Graph Security API accepts the 'User-Agent'
 # header in the following format:
 #     {CompanyName}-{ProductName}/{Version}
-agent = 'Cisco-CiscoThreatResponseMicrosoftGraphSecurity/1.0.0'
+agent = 'Cisco-SecureXThreatResponseMicrosoftGraphSecurity/1.0.0'
 
 
 def token(fresh=False):
