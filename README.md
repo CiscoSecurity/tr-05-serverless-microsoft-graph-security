@@ -11,6 +11,11 @@ The Relay itself is just a simple application written in Python that can be
 easily packaged and deployed as an AWS Lambda Function using
 [Zappa](https://github.com/Miserlou/Zappa).
 
+**NOTE.** The Relay uses [Open Data Protocol (OData) filters](https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter) 
+(in particular lambda operator `any`) while querying data from Microsoft Graph Security API. 
+Microsoft Graph Security API is a federation service that merges data from various Microsoft alert providers.
+As some providers do not fully support OData query filters yet (e.g. Office 365 Security and Compliance, Microsoft Defender ATP), this means alerts from such providers will not be included in the Relay output.
+
 ## Rationale
 
 1. We need an application that will translate API requests from SecureX Threat Response
@@ -284,7 +289,6 @@ header set to `Bearer <JWT>`.
   - Must be a positive integer. Defaults to `100` (if unset or incorrect).
 
 ### CTIM Mapping Specifics
-
 Each Microsoft Graph Security [alert](https://docs.microsoft.com/en-us/graph/api/resources/alert?view=graph-rest-1.0) 
 related to a supported observable is mapped to a single CTIM `Sighting` in a straightforward way.
 For example, `description` of an alert is mapped to `description` of a sighting.
