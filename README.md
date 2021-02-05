@@ -289,6 +289,7 @@ header set to `Bearer <JWT>`.
   - Must be a positive integer. Defaults to `100` (if unset or incorrect).
 
 ### CTIM Mapping Specifics
+
 Each Microsoft Graph Security [alert](https://docs.microsoft.com/en-us/graph/api/resources/alert?view=graph-rest-1.0) 
 related to a supported observable is mapped to a single CTIM `Sighting` in a straightforward way.
 For example, `description` of an alert is mapped to `description` of a sighting.
