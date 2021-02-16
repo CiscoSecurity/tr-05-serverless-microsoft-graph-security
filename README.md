@@ -314,8 +314,7 @@ However, there are a few things that should be noted.
 
   | Provider             | Subprovider       | Sensor             |
   |----------------------|-------------------|--------------------|
-  | Windows Defender ATP |                   | `endpoint`         |
-  | Palo Alto Networks   | Traps             | `endpoint`         |
-  | Palo Alto Networks   | NGFW, NG Firewall | `network.firewall` |
+  | Palo Alto Networks   | NGFW              | `network.firewall` |
+  | Palo Alto Networks   | NG Firewall       | `network.firewall` |
 
   Any other combination of `vendorInformation.provider` and `vendorInformation.subProvider` is mapped to `endpoint`.
