@@ -1,0 +1,77 @@
+{
+  "title": "Microsoft Graph Security API",
+  "default_name": "Microsoft Graph Security API",
+  "short_description": "The Microsoft Graph Security API is an intermediary service that provides a single programmatic interface to connect multiple Microsoft Graph Security providers. Requests to the Microsoft Graph Security API are federated to all applicable security providers.",
+  "description": "Part of Microsoft Graph, the Microsoft Graph Security API integrates with security solutions from Microsoft and partners in a federated model; it can also be used in conjunction with other Microsoft Graph entities to gain additional context (for example, Office 365 and Azure AD). The API has multiple entities, including:  \n- Alerts from multiple security solutions, each representing that potentially malicious activity has been detected within the organization. \n- Secure Score provides information about an organization’s security posture, including a numeric rating based on elements like the enabled security features in your environment and outstanding security risks. This score is available at the tenant level as well as at a specific control area, such as device, app, and identity, through Secure Score Control Profiles. Scores and profiles are available from each security provider that offers them—valuable information that can help guide vulnerability remediation actions based on the suggested actions available in each profile. By default, 90 days of data is retained. \n- Threat intelligence indicators refer to information about known threats, such as malicious IP addresses, domains, or URLs. Organizations can send their threat intelligence to targeted Microsoft services to enable custom detections.",
+  "tips": "When configuring this integration, you must create an app in [Azure](https://portal.azure.com/). \n\n1. Follow steps to [register an application with the Microsoft identity platform](https://docs.microsoft.com/en-us/graph/security-authorization#register-an-application-with-the-microsoft-identity-platform-endpoint)\n2. Complete the **Add New Microsoft Graph Security API Module** form:\n    - **Module Name** - Leave the default name or enter a name that is meaningful to you\n    - Enter the **Application ID**, **Tenant ID**, **Client Secret** from your Microsoft Graph Security API credentials\n    - **Entities Limit** - Enter the limit that restricts the maximum number of CTIM entities of each type returned in a single response per each requested observable. Must be a positive integer. Defaults to 100 (if unset or incorrect).\n 4. Click **Save** to complete the Microsoft Graph Security API module configuration",
+  "external_references": [
+    {
+      "label": "Data Sheet",
+      "link": "https://go.microsoft.com/fwlink/p/?LinkID=2077261&clcid=0x409&culture=en-us&country=US"
+    },
+    {
+      "label": "Whitepaper",
+      "link": "https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWm9G4"
+    },
+    {
+      "label": "Microsoft Graph Security API",
+      "link": "https://docs.microsoft.com/en-us/graph/security-concept-overview"
+    },
+    {
+      "label": "Registration process",
+      "link": "https://github.com/microsoftgraph/security-api-solutions/blob/master/Docs/Authentication-AppOnly/RegisterNewMSGraphSecurityAPIApp.md"
+    }
+  ],
+  "configuration_spec": [
+    {
+      "key": "custom_application_id",
+      "type": "string",
+      "label": "Application ID",
+      "required": true,
+      "group": "Microsoft Graph Security API Credentials"
+    },
+    {
+      "key": "custom_tenant_id",
+      "type": "string",
+      "label": "Tenant ID",
+      "required": true,
+      "group": "Microsoft Graph Security API Credentials"
+    },
+    {
+      "key": "custom_client_secret",
+      "type": "password",
+      "label": "Client Secret",
+      "required": true,
+      "group": "Microsoft Graph Security API Credentials"
+    },
+    {
+      "key": "custom_CTR_ENTITIES_LIMIT",
+      "type": "integer",
+      "label": "Entities Limit",
+      "tooltip": "Restricts the maximum number of `Sightings`",
+      "group": "Integration module configuration",
+      "required": false
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "health",
+      "description": "Check the health of the Microsoft Graph Security API."
+    },
+    {
+      "id": "observe",
+      "description": "Query Microsoft Graph Security API for Domain, Filename, Filepath, IP, SHA256, and domain URL return Sighting."
+    }
+  ],
+  "properties": {
+    "supported-apis": [
+      "health",
+      "observe/observables"
+    ],
+    "url": "https://ciscohosted.url",
+    "auth-type": "configuration-token",
+    "configuration-token-alg": "RS256",
+    "custom_jwks_host": "visibility.amp.cisco.com"
+  },
+  "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAUcaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzE0NSA3OS4xNjM0OTksIDIwMTgvMDgvMTMtMTY6NDA6MjIgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMTEtMTZUMTE6NTg6MDItMDg6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMTgtMTEtMTZUMTE6NTg6MDItMDg6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTExLTE2VDExOjU4OjAyLTA4OjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NzMxMzQ5ZS1iZWZmLTQ2NDYtODEyNC02NWMwY2VlMTc3YmEiIHhtcE1NOkRvY3Vt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"
+}
