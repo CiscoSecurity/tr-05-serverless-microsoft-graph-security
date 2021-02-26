@@ -171,7 +171,7 @@ module using your Lambda's URL and Microsoft Graph Security API key:
 If you want to test the application you have to install a couple of extra
 dependencies from the [requirements.txt](requirements.txt) file:
 ```
-pip install --upgrade --requirement test-requirements.txt
+pip install --upgrade --requirement requirements.txt
 ```
 
 You can perform two kinds of testing:
@@ -243,15 +243,6 @@ header set to `Bearer <JWT>`.
 |------------------------------------|---------------------------------------------------------------|
 | Delegated (work or school account) | `SecurityEvents.Read.All` <br> `SecurityEvents.ReadWrite.All` |
 | Application                        | `SecurityEvents.Read.All` <br> `SecurityEvents.ReadWrite.All` |
-
-### Supported Environment Variables
-
-- `CTR_ENTITIES_LIMIT`
-  - Restricts the maximum number of CTIM entities of each type returned in a
-  single response per each requested observable.
-  - Applies to the following CTIM entities:
-    - `Sighting`.
-  - Must be a positive integer. Defaults to `100` (if unset or incorrect).
 
 ### CTIM Mapping Specifics
 
