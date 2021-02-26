@@ -19,12 +19,12 @@ class Mapping(metaclass=ABCMeta):
 
         return None
 
-    def get(self, base_url, observable, limit, creds):
+    def get(self, base_url, observable, limit, credentials):
         """Retrieves Graph Security alerts and maps them to CTIM."""
 
         url = url_join(base_url, self.filter(observable)) + f'&$top={limit}'
 
-        response = get_data(url, creds)
+        response = get_data(url, credentials)
 
         return [
             self.sighting(observable, x) for x in response.get('value', [])

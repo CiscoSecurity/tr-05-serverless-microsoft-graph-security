@@ -14,7 +14,7 @@ get_observables = partial(get_json, schema=ObservableSchema(many=True))
 @api.route('/observe/observables', methods=['POST'])
 def observe():
     observables = get_observables()
-    creds = get_credentials()
+    credentials = get_credentials()
 
     url = current_app.config['API_URL']
     limit = current_app.config['CTR_ENTITIES_LIMIT']
@@ -25,7 +25,7 @@ def observe():
 
         mapping = Mapping.of(type_)
 
-        return (mapping.get(url, value, limit, creds)
+        return (mapping.get(url, value, limit, credentials)
                 if mapping is not None else [])
 
     g.sightings = []
