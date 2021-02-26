@@ -7,7 +7,7 @@ echo " Development Dockerfile build script."
 echo
 
 module_name="Microsoft Graph Security"
-image_name="tr-05-microsoft-graph-relay"
+image_name="tr-05-microsoft-graph"
 
 CONFIG_FILE=code/container_settings.json
 if [ -f $CONFIG_FILE ]; then
