@@ -42,23 +42,25 @@ def token(credentials, fresh=False):
         raise GraphConnectionError(current_app.config['AUTH_URL'])
 
 
-def headers(creds, fresh=False):
+def headers(credentials, fresh=False):
     """Returns headers with an authorization token."""
     return {
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token(creds, fresh),
+        'Authorization': 'Bearer ' + token(credentials, fresh),
         'Content-Type': 'application/json',
         'User-Agent': agent
     }
 
 
-def get_data(url, creds):
+def get_data(url, credentials):
     try:
-        response = requests.get(url, headers=headers(creds))
+        response = requests.get(url, headers=headers(credentials))
 
         # Refresh the token if expired.
         if response.status_code == HTTPStatus.UNAUTHORIZED:
-            response = requests.get(url, headers=headers(creds, fresh=True))
+            response = requests.get(
+                url, headers=headers(credentials, fresh=True)
+            )
 
         if response.ok:
             return response.json()

@@ -8,7 +8,7 @@ api = Blueprint('health', __name__)
 
 @api.route('/health', methods=['POST'])
 def health():
-    creds = get_credentials()
+    credentials = get_credentials()
     url = url_join(current_app.config['API_URL'], '/security/alerts?$top=0')
-    get_data(url, creds)
+    get_data(url, credentials)
     return jsonify_data({'status': 'ok'})
