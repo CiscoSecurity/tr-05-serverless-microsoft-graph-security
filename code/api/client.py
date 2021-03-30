@@ -12,7 +12,6 @@ from api.errors import (
 # The Graph Security API accepts the 'User-Agent'
 # header in the following format:
 #     {CompanyName}-{ProductName}/{Version}
-
 agent = 'Cisco-SecureXThreatResponseMicrosoftGraphSecurity/1.0.0'
 
 
