@@ -5,7 +5,8 @@ from flask import session, current_app
 from requests.exceptions import SSLError, ConnectionError
 
 from api.errors import (
-    CriticalResponseError, GraphSSLError, GraphConnectionError
+    CriticalResponseError, GraphSSLError, GraphConnectionError,
+    AuthorizationError
 )
 
 # The Graph Security API accepts the 'User-Agent'
@@ -31,6 +32,10 @@ def token(credentials, fresh=False):
                                     headers={'User-Agent': agent})
 
             if not response.ok:
+                if response.status_code == HTTPStatus.NOT_FOUND:
+                    raise AuthorizationError(
+                        'Specified Tenant ID was not found'
+                    )
                 raise CriticalResponseError(response)
 
             response = response.json()
