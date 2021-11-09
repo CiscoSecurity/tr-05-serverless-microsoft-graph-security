@@ -13,28 +13,6 @@ def valid_json():
             {'type': 'file_name', 'value': 'file.bin'}]
 
 
-def test_deliberate_call_success(
-        client, valid_jwt, valid_json
-):
-    response = client.post(
-        '/deliberate/observables', headers=headers(valid_jwt), json=valid_json
-    )
-
-    assert response.status_code == HTTPStatus.OK
-    assert response.json == {'data': {}}
-
-
-def test_refer_call_success(
-        client, valid_jwt, valid_json
-):
-    response = client.post(
-        '/refer/observables', headers=headers(valid_jwt), json=valid_json
-    )
-
-    assert response.status_code == HTTPStatus.OK
-    assert response.json == {'data': []}
-
-
 OBSERVE_OBSERVABLES_ROUTE = '/observe/observables'
 TOKEN = 'token'
 

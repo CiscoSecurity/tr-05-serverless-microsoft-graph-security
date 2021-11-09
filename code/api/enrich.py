@@ -4,7 +4,7 @@ from flask import Blueprint, current_app, g
 
 from .mappings import Mapping
 from .schema import ObservableSchema
-from .utils import get_json, jsonify_result, jsonify_data, get_credentials
+from .utils import get_json, jsonify_result, get_credentials
 
 api = Blueprint('enrich', __name__)
 
@@ -34,13 +34,3 @@ def observe():
         g.sightings.extend(observe(observable))
 
     return jsonify_result()
-
-
-@api.route('/deliberate/observables', methods=['POST'])
-def deliberate():
-    return jsonify_data({})
-
-
-@api.route('/refer/observables', methods=['POST'])
-def refer():
-    return jsonify_data([])
